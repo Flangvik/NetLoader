@@ -1,8 +1,8 @@
 # NetLoader
 Loads any C# binary in mem, patching AMSI and bypassing Windows Defender
 
-The binaries SHOULD be all clean and newly compiled from their respective GitHub repos, but feel free to compile / host your own.
-(Don't cosider running binaries from this repo good OPSEC) 
+The binaries in this repo SHOULD be all clean and newly compiled from their respective GitHub repos, but feel free to compile / host your own.
+(Don't consider running binaries from this repo good OPSEC) 
 Code is designed to get binaries from a GitHub repo, so should be straight forward.
 
 1. Clone your own repo from this
