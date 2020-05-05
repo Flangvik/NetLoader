@@ -12,3 +12,6 @@ Code is designed to get binaries from a GitHub, so should be straight forward.
 As of 05.05.2020, it's FUD and bypasses Defender. 
 (Going to try to update and keep it like this) 
 ![netload](https://github.com/Flangvik/NetLoader/raw/master/screenshot.JPG)
+
+Credits to https://twitter.com/_RastaMouse for the AMSI bypass
+-> https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass/Program.cs
