@@ -15,7 +15,7 @@ public class NetLoader
 
     public static void Main(string[] args)
     {
-        string bannerArt = @"""                
+        string bannerArt = @"                
                 \||/
                 | @___oo
       /\  /\   / (__,,,,|
