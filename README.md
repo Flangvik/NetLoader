@@ -21,10 +21,21 @@ As of 05.05.2020, pretty much clean as a whistle
 Credits to https://twitter.com/_RastaMouse for the AMSI bypass
 -> https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass/Program.cs
 
+#LOLBins
+
+Payload for MSBuild is in the repo, might push this for varius other LOLBins aswell.
+
+	For 64 bit:
+	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe NetLoader.xml
+
+	For 32 bit:
+	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
+
 # Todo
 - [ ]  Automate the build and release of many of the Sharp Tools so they automagically appear in /Binaries (CDI / Azure DevOps)
 - [ ]  Add support for non-interactive use (input args)
 - [X]  Add support to run custom modules from your own URL or SMB Share (Great for on-the-fly Implant deployment)
 - [ ]  Add some missing stuff SharpSploit and SharpShell (Need to fix some deps)
 - [ ]  Propely confirm and test every current bin
-- [ ]  Add an working MSBuild XML payload for the LOLBins lovers (Myself included)
+- [X]  Add an working MSBuild XML payload for the LOLBins lovers (Myself included)
+- [ ]  Update with credits and links to the github repos that /Binaries are compiled from

