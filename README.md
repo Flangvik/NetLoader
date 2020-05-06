@@ -21,7 +21,7 @@ As of 05.05.2020, pretty much clean as a whistle
 Credits to https://twitter.com/_RastaMouse for the AMSI bypass
 -> https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass/Program.cs
 
-#LOLBins
+# LOLBins
 
 Payload for MSBuild is in the repo, might push this for varius other LOLBins aswell.
 
