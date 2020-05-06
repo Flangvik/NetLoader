@@ -10,16 +10,20 @@ Code is designed to get binaries from a GitHub repo, so should be straight forwa
 3. Re-Compile / add your own binaries in /Binaries (Regex looks for .bin only!)
 3. Build and enjoy!
 
-As of 05.05.2020, it's FUD and bypasses Defender. 
-(Going to try to update and keep it like this) 
+
 ![netload](https://github.com/Flangvik/NetLoader/raw/master/netloader.jpg)
+
+
+As of 05.05.2020, pretty much clean as a whistle
+(Going to try to update and keep it like this) 
+![scanresults](https://scanmybin.net/img/5e67b051ac75e83a1771782d121178b50f67c3da84190084feca4ded2893a924)
 
 Credits to https://twitter.com/_RastaMouse for the AMSI bypass
 -> https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass/Program.cs
 
 # Todo
 - [ ]  Automate the build and release of many of the Sharp Tools so they automagically appear in /Binaries (CDI / Azure DevOps)
-- [ ]  Add support for non-interactive use (input args(
+- [ ]  Add support for non-interactive use (input args)
 - [X]  Add support to run custom modules from your own URL or SMB Share (Great for on-the-fly Implant deployment)
 - [ ]  Add some missing stuff SharpSploit and SharpShell (Need to fix some deps)
 - [ ]  Propely confirm and test every current bin
