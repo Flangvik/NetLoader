@@ -1,5 +1,0 @@
-D:\Projects\NetLoader\NetLoader\NetLoader\bin\Debug\NetLoader.exe
-D:\Projects\NetLoader\NetLoader\NetLoader\bin\Debug\NetLoader.pdb
-D:\Projects\NetLoader\NetLoader\NetLoader\obj\Debug\NetLoader.csproj.CoreCompileInputs.cache
-D:\Projects\NetLoader\NetLoader\NetLoader\obj\Debug\NetLoader.exe
-D:\Projects\NetLoader\NetLoader\NetLoader\obj\Debug\NetLoader.pdb

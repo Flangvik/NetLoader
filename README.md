@@ -10,8 +10,12 @@ Code is designed to get binaries from a GitHub repo, so should be straight forwa
 3. Re-Compile / add your own binaries in /Binaries (Regex looks for .bin only!)
 3. Build and enjoy!
 
+# Compile
+Changed because Defender added some signatures realted to VS stuff.
 
-![netload](https://github.com/Flangvik/NetLoader/raw/master/netloader.jpg)
+	c:\windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /t:exe /out:RandomName.exe Program.cs
+
+![netload](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/netloader.jpg)
 
 
 As of 05.05.2020, pretty much clean as a whistle
@@ -23,7 +27,7 @@ Credits to https://twitter.com/_RastaMouse for the AMSI bypass
 
 # LOLBins
 
-Payload for MSBuild is in the repo, might push this for varius other LOLBins aswell.
+Payload for MSBuild is in the repo (LOLBins) folder, might push this for varius other LOLBins aswell.
 
 	For 64 bit:
 	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe NetLoader.xml
