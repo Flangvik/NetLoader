@@ -13,6 +13,7 @@ Code is designed to get binaries from a GitHub repo, so should be straight forwa
 # Compile
 Changed because Defender added some signatures related to VS ressources.
 (Also just way simpler)
+
 	c:\windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /t:exe /out:RandomName.exe Program.cs
 
 ![netload](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/netloader.jpg)
