@@ -19,9 +19,8 @@ Changed because Defender added some signatures related to VS ressources.
 ![netload](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/netloader.jpg)
 
 
-As of 09.05.2020, pretty much clean as a whistle
-(Going to try to update and keep it like this) 
-![scanresults](https://scanmybin.net/img/bdf5648b35d0c8d348038f30dae7b8658a89ff39ad0fddec8bb36b8bb196de64)
+Latest update / Signature fix was 10.05.2020, pretty much clean as a whistle
+Currently doing 24/7 signature checks, so let's see how long it takes this time
 
 Credits to https://twitter.com/_RastaMouse for the AMSI bypass
 -> https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass/Program.cs
