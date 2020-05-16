@@ -19,7 +19,7 @@ Changed because Defender added some signatures related to VS ressources.
 ![netload](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/netloader.jpg)
 
 
-Latest update / Signature fix was 10.05.2020, pretty much clean as a whistle
+Latest update / Signature fix was 16.05.2020, pretty much clean as a whistle
 Currently doing 24/7 signature checks, so let's see how long it takes this time
 
 Credits to https://twitter.com/_RastaMouse for the AMSI bypass
