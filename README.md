@@ -22,10 +22,10 @@ Changed because Defender added some signatures related to VS ressources.
 
 # Usage
 Deploy from remote URI
-![Minimalistic local input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInputlocal.JPG)
+![Minimalistic input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInput.JPG)
 
 Deploy from local path or SMB share, note that NetLoader detects whether the input path is local or remote)
-![Minimalistic input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInput.JPG)
+![Minimalistic local input](https://github.com/Flangvik/NetLoader/raw/master/Screenshots/MinimalInputlocal.JPG)
 
 Support base64 inputs for those long strings that usually would break stuff!
 
