@@ -4,7 +4,7 @@ Loads any C# binary in mem, patching AMSI and bypassing Windows Defender
 The binaries in this repo SHOULD be all clean and newly compiled from their respective GitHub repos, but feel free to compile / host your own.
 (Don't consider running binaries from this repo good OPSEC) 
 
-Latest update / Signature fix was 28.05.2020, pretty much clean as a whistle
+Latest update / signature fix was 03.06.2020, clean as a whistle
 Currently doing 24/7 signature checks, so let's see how long it takes this time
 
 Code is designed to deploy binaries from a GitHub repo, so should be straight forward.
