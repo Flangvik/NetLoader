@@ -1,7 +1,7 @@
 # NetLoader
 Loads any C# binary from filepath or url, patching AMSI and bypassing Windows Defender on runtime
 
-Latest update / signature fix was 14.06.2020, clean as a whistle
+Latest update / signature fix was 16.06.2020, clean as a whistle
 I am doing 24/7 signature checks and pushing updates when possible so I can keep NetLoader undetected (mainly for my own educational purposes).
 **Please do not upload to VirusTotal and DISABLE "Sample Submission" when testing / possible**
 
