@@ -1,11 +1,10 @@
 # NetLoader
 Loads any C# binary from filepath or url, patching AMSI and bypassing Windows Defender on runtime
 
-Latest update / signature fix was 02.07.2020, clean as a whistle
-I am doing 24/7 signature checks and pushing updates when possible so I can keep NetLoader undetected (mainly for my own educational purposes).
-**Please do not upload to VirusTotal and DISABLE "Sample Submission" when testing / possible**
+**I am no longer supplying signature updates for this project**
 
-**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!. SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
+**Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!.  
+SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
 
 # Compile
 
