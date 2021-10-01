@@ -1,7 +1,7 @@
 # NetLoader
-Loads any C# binary from filepath or url, patching AMSI and bypassing Windows Defender on runtime
+Loads any C# binary from filepath or url, patching AMSI and unhooks ETW
 
-**I am no longer supplying signature updates for this project**
+** 01.10.2021 : Non-Obfuscated source code + SharpSploit to 'bypass' userland hooks when patching AMSI and ETW**
 
 **Looking for binaries/payloads to deploy? Checkout [SharpCollection](https://github.com/Flangvik/SharpCollection)**!.  
 SharpCollection contains nightly builds of C# offensive tools, fresh from their respective master branches built and released in a CDI fashion using Azure DevOps release pipelines.
